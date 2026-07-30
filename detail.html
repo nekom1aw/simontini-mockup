@@ -59,6 +59,35 @@
       -webkit-line-clamp: 2;
     }
 
+    .comment-reply {
+      position: relative;
+      margin-left: 1.25rem;
+      padding-left: 1.25rem;
+    }
+
+    .comment-reply::before {
+      position: absolute;
+      top: -2rem;
+      left: 0;
+      width: 1.25rem;
+      height: 3.25rem;
+      border-left: 1px solid #d9e1df;
+      border-bottom: 1px solid #d9e1df;
+      border-bottom-left-radius: 1rem;
+      content: '';
+      pointer-events: none;
+    }
+
+    @media (min-width: 640px) {
+      .comment-reply {
+        padding-left: 2rem;
+      }
+
+      .comment-reply::before {
+        width: 2rem;
+      }
+    }
+
     .subscribe-modal {
       visibility: hidden;
       opacity: 0;
@@ -554,13 +583,16 @@
             <time data-comment-date class="text-[10px] uppercase tracking-[0.08em] text-auriga-muted"></time>
           </div>
           <p data-comment-message class="mt-2 whitespace-pre-line text-sm leading-6 text-auriga-ink/75"></p>
-          <button
-            data-reply-toggle
-            type="button"
-            class="mt-3 text-[10px] font-bold uppercase tracking-[0.12em] text-[#376A64] transition hover:text-[#2d5954]"
-          >
-            Balas
-          </button>
+          <div data-comment-controls class="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2">
+            <button
+              data-reply-toggle
+              type="button"
+              class="text-[10px] font-bold uppercase tracking-[0.12em] text-[#376A64] transition hover:text-[#2d5954]"
+            >
+              Balas
+            </button>
+            <span data-thread-toggle-slot class="contents"></span>
+          </div>
 
           <form data-reply-form class="mt-4 hidden">
             <div class="flex items-center gap-3 px-1">
@@ -630,7 +662,7 @@
           </form>
         </div>
       </div>
-      <div data-reply-list class="mt-6 space-y-6"></div>
+      <div data-reply-list class="mt-5 space-y-0"></div>
     </article>
   </template>
 
@@ -651,6 +683,20 @@
     const commentSubmit = document.querySelector('[data-comment-submit]');
     const commentFormatButtons = document.querySelectorAll('[data-format]');
     const expandedCommentThreads = new Set();
+    let commentConnectorUpdaters = [];
+
+    function refreshCommentConnectors() {
+      requestAnimationFrame(() => {
+        commentConnectorUpdaters.forEach((updateConnector) => updateConnector());
+      });
+    }
+
+    const commentResizeObserver = 'ResizeObserver' in window
+      ? new ResizeObserver(refreshCommentConnectors)
+      : null;
+    if (commentResizeObserver) {
+      commentResizeObserver.observe(commentList);
+    }
     const defaultComments = [
       {
         id: 'comment-rina',
@@ -786,7 +832,8 @@
       const item = commentTemplate.content.firstElementChild.cloneNode(true);
 
       if (depth > 0) {
-        item.classList.add('ml-5', 'border-l', 'pl-4', 'sm:ml-10');
+        item.classList.add('comment-reply');
+        item.classList.remove('border-b');
       }
 
       item.querySelector('[data-comment-avatar]').textContent = comment.name.charAt(0);
@@ -806,6 +853,8 @@
       const replyForm = item.querySelector('[data-reply-form]');
       const replyStatus = item.querySelector('[data-reply-status]');
       const replyList = item.querySelector('[data-reply-list]');
+      const commentControls = item.querySelector('[data-comment-controls]');
+      const threadToggleSlot = item.querySelector('[data-thread-toggle-slot]');
       const replyName = replyForm.querySelector('[name="replyName"]');
       const replyMessage = replyForm.querySelector('[name="replyMessage"]');
       const replyFormAvatar = replyForm.querySelector('[data-reply-form-avatar]');
@@ -841,6 +890,10 @@
       const reachedReplyLimit = depth >= 3;
       const canReply = !reachedReplyLimit;
       replyToggle.classList.toggle('hidden', !canReply);
+      commentControls.classList.toggle(
+        'hidden',
+        !canReply && (comment.replies || []).length === 0
+      );
 
       if (canReply) {
         replyToggle.addEventListener('click', () => {
@@ -897,11 +950,42 @@
 
         threadToggle.type = 'button';
         threadToggle.className =
-          'mt-5 inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.1em] text-[#376A64] transition hover:text-[#2d5954]';
+          'inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.1em] text-[#376A64] transition hover:text-[#2d5954]';
         caret.textContent = '⌄';
         caret.className = 'text-base leading-none transition-transform';
         threadToggle.append(caret, label);
-        replyList.before(threadToggle);
+        threadToggleSlot.append(threadToggle);
+
+        const parentAvatar = item.querySelector('[data-comment-avatar]');
+        const lastReply = replyList.lastElementChild;
+        const parentConnector = document.createElement('span');
+        item.classList.add('relative');
+        parentConnector.className =
+          'pointer-events-none absolute z-0 w-px bg-[#d9e1df]';
+        parentConnector.setAttribute('aria-hidden', 'true');
+        item.append(parentConnector);
+
+        const updateParentConnector = () => {
+          const expanded = expandedCommentThreads.has(comment.id);
+          if (!expanded || !lastReply) {
+            parentConnector.classList.add('hidden');
+            return;
+          }
+
+          const itemRect = item.getBoundingClientRect();
+          const avatarRect = parentAvatar.getBoundingClientRect();
+          const lastReplyRect = lastReply.getBoundingClientRect();
+          const connectorTop = avatarRect.bottom - itemRect.top;
+          const connectorBottom = lastReplyRect.top - itemRect.top - 32;
+          const connectorHeight = Math.max(0, connectorBottom - connectorTop);
+
+          parentConnector.style.left =
+            `${avatarRect.left + (avatarRect.width / 2) - itemRect.left}px`;
+          parentConnector.style.top = `${connectorTop}px`;
+          parentConnector.style.height = `${connectorHeight}px`;
+          parentConnector.classList.toggle('hidden', connectorHeight === 0);
+        };
+        commentConnectorUpdaters.push(updateParentConnector);
 
         const updateThreadVisibility = () => {
           const expanded = expandedCommentThreads.has(comment.id);
@@ -911,6 +995,7 @@
             ? `Tutup ${replyCount} balasan`
             : `Lihat ${replyCount} balasan`;
           caret.classList.toggle('rotate-180', expanded);
+          refreshCommentConnectors();
         };
 
         threadToggle.addEventListener('click', () => {
@@ -931,6 +1016,7 @@
     function renderComments() {
       const comments = getComments();
       saveComments(comments);
+      commentConnectorUpdaters = [];
       commentList.replaceChildren();
       commentCount.textContent = `${countComments(comments)} komentar`;
       commentEmpty.classList.toggle('hidden', comments.length > 0);
@@ -938,6 +1024,14 @@
       [...comments].reverse().forEach((comment) => {
         commentList.appendChild(createCommentElement(comment, 0, comment.id));
       });
+
+      refreshCommentConnectors();
+    }
+
+    window.addEventListener('resize', refreshCommentConnectors);
+
+    if (document.fonts) {
+      document.fonts.ready.then(refreshCommentConnectors);
     }
 
     function toggleCommentEditor(expanded) {
