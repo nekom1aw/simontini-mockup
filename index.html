@@ -23,7 +23,7 @@
     rel="stylesheet"
   >
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" defer></script>
   <script>
     tailwind.config = {
       theme: {
@@ -274,13 +274,9 @@
           <p class="mb-3 text-[10px] font-bold uppercase tracking-[0.12em] text-auriga-muted">
             Verifikasi keamanan
           </p>
-          <div
-            class="cf-turnstile"
-            data-sitekey="0x4AAAAAAEB2t5fz6Yb-YTz4"
-            data-action="subscribe"
-            data-theme="light"
-            data-size="flexible"
-          ></div>
+          <div data-subscribe-turnstile>
+            <span class="text-xs text-auriga-muted">Memuat CAPTCHA...</span>
+          </div>
         </div>
 
         <button
@@ -508,13 +504,44 @@
     const subscribeForm = document.querySelector('[data-subscribe-form]');
     const subscribeStatus = document.querySelector('[data-subscribe-status]');
     const subscribeSubmitButton = subscribeForm.querySelector('button[type="submit"]');
-    const subscribeTurnstileWidget = subscribeForm.querySelector('.cf-turnstile');
+    const subscribeTurnstileWidget = subscribeForm.querySelector('[data-subscribe-turnstile]');
+    const isLocalTurnstile = ['localhost', '127.0.0.1', '::1'].includes(window.location.hostname);
+    const turnstileSiteKey = isLocalTurnstile
+      ? '1x00000000000000000000AA'
+      : '0x4AAAAAAEB2t5fz6Yb-YTz4';
     let subscribeLastFocus = null;
 
+    function renderSubscribeTurnstile(attempt = 0) {
+      if (subscribeTurnstileWidget.dataset.widgetId) return;
+      if (!window.turnstile) {
+        if (attempt < 240) {
+          setTimeout(() => renderSubscribeTurnstile(attempt + 1), 250);
+        } else {
+          subscribeTurnstileWidget.textContent =
+            'CAPTCHA gagal dimuat. Periksa koneksi lalu muat ulang halaman.';
+        }
+        return;
+      }
+
+      try {
+        subscribeTurnstileWidget.replaceChildren();
+        const widgetId = window.turnstile.render(subscribeTurnstileWidget, {
+          sitekey: turnstileSiteKey,
+          action: 'subscribe',
+          theme: 'light',
+          size: 'flexible'
+        });
+        subscribeTurnstileWidget.dataset.widgetId = String(widgetId);
+      } catch (error) {
+        subscribeTurnstileWidget.textContent =
+          'CAPTCHA gagal dimuat. Silakan muat ulang halaman.';
+      }
+    }
+
     function resetSubscribeTurnstile() {
-      if (window.turnstile) {
+      if (window.turnstile && subscribeTurnstileWidget.dataset.widgetId) {
         try {
-          window.turnstile.reset(subscribeTurnstileWidget);
+          window.turnstile.reset(subscribeTurnstileWidget.dataset.widgetId);
         } catch (error) {
           // Widget may still be loading when the modal is opened for the first time.
         }
@@ -529,6 +556,7 @@
       if (open) {
         subscribeLastFocus = document.activeElement;
         subscribeStatus.textContent = '';
+        renderSubscribeTurnstile();
         resetSubscribeTurnstile();
         setTimeout(() => subscribeForm.querySelector('input[name="name"]').focus(), 0);
       } else if (subscribeLastFocus) {
@@ -552,7 +580,10 @@
       const formData = new FormData(subscribeForm);
       const name = String(formData.get('name')).trim();
       const email = String(formData.get('email')).trim();
-      const turnstileToken = String(formData.get('cf-turnstile-response') || '');
+      const turnstileToken =
+        window.turnstile && subscribeTurnstileWidget.dataset.widgetId
+          ? window.turnstile.getResponse(subscribeTurnstileWidget.dataset.widgetId)
+          : '';
 
       if (!turnstileToken) {
         subscribeStatus.textContent = 'Selesaikan verifikasi keamanan terlebih dahulu.';
@@ -565,6 +596,7 @@
       try {
         const verificationData = new FormData();
         verificationData.append('cf-turnstile-response', turnstileToken);
+        verificationData.append('expected-action', 'subscribe');
         const verificationResponse = await fetch('verify-turnstile.php', {
           method: 'POST',
           headers: { Accept: 'application/json' },

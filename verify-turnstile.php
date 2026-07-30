@@ -20,7 +20,12 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     ]);
 }
 
-$secret = trim((string) getenv('TURNSTILE_SECRET_KEY'));
+$requestHost = strtolower((string) ($_SERVER['HTTP_HOST'] ?? ''));
+$requestHost = explode(':', $requestHost, 2)[0];
+$isLocalRequest = in_array($requestHost, ['localhost', '127.0.0.1', '::1'], true);
+$secret = $isLocalRequest
+    ? '1x0000000000000000000000000000000AA'
+    : trim((string) getenv('TURNSTILE_SECRET_KEY'));
 if ($secret === '') {
     respond(503, [
         'success' => false,
@@ -33,6 +38,15 @@ if ($token === '' || strlen($token) > 2048) {
     respond(422, [
         'success' => false,
         'message' => 'Verifikasi keamanan belum lengkap.',
+    ]);
+}
+
+$expectedAction = trim((string) ($_POST['expected-action'] ?? ''));
+$allowedActions = ['subscribe', 'comment', 'reply'];
+if (!in_array($expectedAction, $allowedActions, true)) {
+    respond(422, [
+        'success' => false,
+        'message' => 'Jenis verifikasi keamanan tidak valid.',
     ]);
 }
 
@@ -88,9 +102,12 @@ if (!is_array($verification) || empty($verification['success'])) {
 }
 
 if (
-    isset($verification['action'])
-    && $verification['action'] !== ''
-    && $verification['action'] !== 'subscribe'
+    !$isLocalRequest
+    && (
+    !isset($verification['action'])
+    || !is_string($verification['action'])
+    || $verification['action'] !== $expectedAction
+    )
 ) {
     respond(422, [
         'success' => false,

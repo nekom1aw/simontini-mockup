@@ -13,7 +13,7 @@
     rel="stylesheet"
   >
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" defer></script>
   <script>
     tailwind.config = {
       theme: {
@@ -446,6 +446,15 @@
                 class="block min-h-16 w-full resize-none border-0 bg-transparent px-5 py-4 text-sm leading-7 outline-none transition-all duration-300 placeholder:text-auriga-muted/45 focus:ring-0 sm:text-base"
               ></textarea>
 
+              <div data-comment-security class="hidden border-t border-black/5 px-5 py-4">
+                <p class="mb-3 text-[10px] font-bold uppercase tracking-[0.1em] text-auriga-muted">
+                  Verifikasi keamanan
+                </p>
+                <div data-comment-turnstile>
+                  <span class="text-xs text-auriga-muted">Memuat CAPTCHA...</span>
+                </div>
+              </div>
+
               <div data-comment-actions class="hidden items-center justify-between gap-4 border-t border-black/5 px-5 py-4">
                 <div class="flex items-center gap-5 text-auriga-muted" aria-label="Format komentar">
                   <button data-format="bold" type="button" class="font-serif text-xl font-bold transition hover:text-auriga-ink" aria-label="Tebal">
@@ -561,13 +570,9 @@
           <p class="mb-3 text-[10px] font-bold uppercase tracking-[0.12em] text-auriga-muted">
             Verifikasi keamanan
           </p>
-          <div
-            class="cf-turnstile"
-            data-sitekey="0x4AAAAAAEB2t5fz6Yb-YTz4"
-            data-action="subscribe"
-            data-theme="light"
-            data-size="flexible"
-          ></div>
+          <div data-subscribe-turnstile>
+            <span class="text-xs text-auriga-muted">Memuat CAPTCHA...</span>
+          </div>
         </div>
 
         <button
@@ -640,6 +645,15 @@
                 class="block min-h-28 w-full resize-none border-0 bg-transparent px-4 py-3 text-sm leading-6 outline-none placeholder:text-auriga-muted/45 focus:ring-0"
               ></textarea>
 
+              <div class="border-t border-black/5 px-4 py-3">
+                <p class="mb-2 text-[9px] font-bold uppercase tracking-[0.1em] text-auriga-muted">
+                  Verifikasi keamanan
+                </p>
+                <div data-reply-turnstile>
+                  <span class="text-xs text-auriga-muted">Memuat CAPTCHA...</span>
+                </div>
+              </div>
+
               <div class="flex items-center justify-between gap-3 border-t border-black/5 px-4 py-3">
                 <div class="flex items-center gap-4 text-auriga-muted" aria-label="Format balasan">
                   <button data-reply-format="bold" type="button" class="font-serif text-lg font-bold transition hover:text-auriga-ink" aria-label="Tebal">
@@ -692,17 +706,84 @@
     const commentMessage = document.getElementById('comment-message');
     const commentFormAvatar = document.querySelector('[data-comment-form-avatar]');
     const commentEditor = document.querySelector('[data-comment-editor]');
+    const commentSecurity = document.querySelector('[data-comment-security]');
+    const commentTurnstile = document.querySelector('[data-comment-turnstile]');
     const commentActions = document.querySelector('[data-comment-actions]');
     const commentCancel = document.querySelector('[data-comment-cancel]');
     const commentSubmit = document.querySelector('[data-comment-submit]');
     const commentFormatButtons = document.querySelectorAll('[data-format]');
     const expandedCommentThreads = new Set();
     let commentConnectorUpdaters = [];
+    const isLocalTurnstile = ['localhost', '127.0.0.1', '::1'].includes(window.location.hostname);
+    const turnstileSiteKey = isLocalTurnstile
+      ? '1x00000000000000000000AA'
+      : '0x4AAAAAAEB2t5fz6Yb-YTz4';
 
     function refreshCommentConnectors() {
       requestAnimationFrame(() => {
         commentConnectorUpdaters.forEach((updateConnector) => updateConnector());
       });
+    }
+
+    function renderTurnstileWidget(container, action) {
+      if (container.dataset.widgetId) return;
+      if (!window.turnstile) {
+        const attempts = Number(container.dataset.renderAttempts || 0);
+        if (attempts < 240) {
+          container.dataset.renderAttempts = String(attempts + 1);
+          setTimeout(() => renderTurnstileWidget(container, action), 250);
+        } else {
+          container.textContent = 'CAPTCHA gagal dimuat. Periksa koneksi lalu muat ulang halaman.';
+          container.classList.add('text-xs', 'text-auriga-red');
+        }
+        return;
+      }
+
+      try {
+        container.replaceChildren();
+        const widgetId = window.turnstile.render(container, {
+          sitekey: turnstileSiteKey,
+          action,
+          theme: 'light',
+          size: 'flexible'
+        });
+        container.dataset.widgetId = String(widgetId);
+      } catch (error) {
+        container.textContent = 'CAPTCHA gagal dimuat. Silakan muat ulang halaman.';
+        container.classList.add('text-xs', 'text-auriga-red');
+      }
+    }
+
+    function resetTurnstileWidget(container) {
+      if (container.dataset.widgetId && window.turnstile) {
+        try {
+          window.turnstile.reset(container.dataset.widgetId);
+        } catch (error) {
+          // Widget dapat hilang ketika daftar komentar dirender ulang.
+        }
+      }
+    }
+
+    function getTurnstileToken(container) {
+      if (!container.dataset.widgetId || !window.turnstile) return '';
+      return window.turnstile.getResponse(container.dataset.widgetId);
+    }
+
+    async function verifyTurnstileToken(token, action) {
+      const verificationData = new FormData();
+      verificationData.append('cf-turnstile-response', token);
+      verificationData.append('expected-action', action);
+
+      const response = await fetch('verify-turnstile.php', {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: verificationData
+      });
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.message || 'Verifikasi keamanan gagal. Silakan coba lagi.');
+      }
     }
 
     const commentResizeObserver = 'ResizeObserver' in window
@@ -874,6 +955,7 @@
       const replyFormAvatar = replyForm.querySelector('[data-reply-form-avatar]');
       const replyCancel = replyForm.querySelector('[data-reply-cancel]');
       const replySubmit = replyForm.querySelector('[data-reply-submit]');
+      const replyTurnstile = replyForm.querySelector('[data-reply-turnstile]');
       const replyFormatButtons = replyForm.querySelectorAll('[data-reply-format]');
       replyMessage.placeholder = `Balas @${comment.name}...`;
 
@@ -889,6 +971,7 @@
       replyCancel.addEventListener('click', () => {
         replyForm.reset();
         replyStatus.textContent = '';
+        resetTurnstileWidget(replyTurnstile);
         replyForm.classList.add('hidden');
         updateReplyFormState();
         replyToggle.focus();
@@ -913,43 +996,66 @@
         replyToggle.addEventListener('click', () => {
           replyForm.classList.toggle('hidden');
           if (!replyForm.classList.contains('hidden')) {
+            renderTurnstileWidget(replyTurnstile, 'reply');
             replyName.focus();
           }
         });
       }
 
-      replyForm.addEventListener('submit', (event) => {
+      replyForm.addEventListener('submit', async (event) => {
         event.preventDefault();
         const formData = new FormData(replyForm);
         const name = String(formData.get('replyName')).trim();
         const message = String(formData.get('replyMessage')).trim();
+        const turnstileToken = getTurnstileToken(replyTurnstile);
 
         if (!name || !message) {
           replyStatus.textContent = 'Nama dan balasan wajib diisi.';
           return;
         }
 
-        const comments = getComments();
-        const parentComment = findComment(comments, comment.id);
-        if (!parentComment) return;
-
         if (depth >= 3) {
           replyStatus.textContent = 'Batas maksimal balasan telah tercapai.';
           return;
         }
 
-        parentComment.replies.push({
-          id: createCommentId(),
-          name,
-          message,
-          replyTo: parentComment.name,
-          createdAt: new Date().toISOString(),
-          replies: []
-        });
-        saveComments(comments);
-        expandedCommentThreads.add(threadRootId);
-        expandedCommentThreads.add(comment.id);
-        renderComments();
+        if (!turnstileToken) {
+          replyStatus.textContent = 'Selesaikan verifikasi keamanan terlebih dahulu.';
+          return;
+        }
+
+        replySubmit.disabled = true;
+        replyStatus.textContent = 'Memverifikasi keamanan...';
+
+        try {
+          await verifyTurnstileToken(turnstileToken, 'reply');
+
+          const comments = getComments();
+          const parentComment = findComment(comments, comment.id);
+          if (!parentComment) return;
+
+          parentComment.replies.push({
+            id: createCommentId(),
+            name,
+            message,
+            replyTo: parentComment.name,
+            createdAt: new Date().toISOString(),
+            replies: []
+          });
+          saveComments(comments);
+          resetTurnstileWidget(replyTurnstile);
+          expandedCommentThreads.add(threadRootId);
+          expandedCommentThreads.add(comment.id);
+          renderComments();
+        } catch (error) {
+          replyStatus.textContent =
+            error instanceof Error
+              ? error.message
+              : 'Balasan belum dapat diproses. Silakan coba kembali.';
+          resetTurnstileWidget(replyTurnstile);
+        } finally {
+          updateReplyFormState();
+        }
       });
 
       (comment.replies || []).forEach((reply) => {
@@ -1056,8 +1162,12 @@
     function toggleCommentEditor(expanded) {
       commentEditor.dataset.expanded = String(expanded);
       commentMessage.rows = expanded ? 6 : 1;
+      commentSecurity.classList.toggle('hidden', !expanded);
       commentActions.classList.toggle('hidden', !expanded);
       commentActions.classList.toggle('flex', expanded);
+      if (expanded) {
+        renderTurnstileWidget(commentTurnstile, 'comment');
+      }
     }
 
     function updateCommentFormState() {
@@ -1098,6 +1208,7 @@
     commentCancel.addEventListener('click', () => {
       commentMessage.value = '';
       commentStatus.textContent = '';
+      resetTurnstileWidget(commentTurnstile);
       toggleCommentEditor(false);
       updateCommentFormState();
       commentName.focus();
@@ -1130,33 +1241,55 @@
       }
     });
 
-    commentForm.addEventListener('submit', (event) => {
+    commentForm.addEventListener('submit', async (event) => {
       event.preventDefault();
 
       const formData = new FormData(commentForm);
       const name = String(formData.get('name')).trim();
       const message = String(formData.get('message')).trim();
+      const turnstileToken = getTurnstileToken(commentTurnstile);
 
       if (!name || !message) {
         commentStatus.textContent = 'Nama dan komentar wajib diisi.';
         return;
       }
 
-      const comments = getComments();
-      comments.push({
-        id: createCommentId(),
-        name,
-        message,
-        createdAt: new Date().toISOString(),
-        replies: []
-      });
-      saveComments(comments);
+      if (!turnstileToken) {
+        commentStatus.textContent = 'Selesaikan verifikasi keamanan terlebih dahulu.';
+        return;
+      }
 
-      commentForm.reset();
-      commentStatus.textContent = 'Komentar berhasil ditambahkan.';
-      toggleCommentEditor(false);
-      updateCommentFormState();
-      renderComments();
+      commentSubmit.disabled = true;
+      commentStatus.textContent = 'Memverifikasi keamanan...';
+
+      try {
+        await verifyTurnstileToken(turnstileToken, 'comment');
+
+        const comments = getComments();
+        comments.push({
+          id: createCommentId(),
+          name,
+          message,
+          createdAt: new Date().toISOString(),
+          replies: []
+        });
+        saveComments(comments);
+
+        commentForm.reset();
+        resetTurnstileWidget(commentTurnstile);
+        commentStatus.textContent = 'Komentar berhasil ditambahkan.';
+        toggleCommentEditor(false);
+        updateCommentFormState();
+        renderComments();
+      } catch (error) {
+        commentStatus.textContent =
+          error instanceof Error
+            ? error.message
+            : 'Komentar belum dapat dikirim. Silakan coba kembali.';
+        resetTurnstileWidget(commentTurnstile);
+      } finally {
+        updateCommentFormState();
+      }
     });
 
     toggleCommentEditor(false);
@@ -1169,17 +1302,11 @@
     const subscribeForm = document.querySelector('[data-subscribe-form]');
     const subscribeStatus = document.querySelector('[data-subscribe-status]');
     const subscribeSubmitButton = subscribeForm.querySelector('button[type="submit"]');
-    const subscribeTurnstileWidget = subscribeForm.querySelector('.cf-turnstile');
+    const subscribeTurnstileWidget = subscribeForm.querySelector('[data-subscribe-turnstile]');
     let subscribeLastFocus = null;
 
     function resetSubscribeTurnstile() {
-      if (window.turnstile) {
-        try {
-          window.turnstile.reset(subscribeTurnstileWidget);
-        } catch (error) {
-          // Widget may still be loading when the modal is opened for the first time.
-        }
-      }
+      resetTurnstileWidget(subscribeTurnstileWidget);
     }
 
     function toggleSubscribeModal(open) {
@@ -1190,6 +1317,7 @@
       if (open) {
         subscribeLastFocus = document.activeElement;
         subscribeStatus.textContent = '';
+        renderTurnstileWidget(subscribeTurnstileWidget, 'subscribe');
         resetSubscribeTurnstile();
         setTimeout(() => subscribeForm.querySelector('input[name="name"]').focus(), 0);
       } else if (subscribeLastFocus) {
@@ -1213,7 +1341,7 @@
       const formData = new FormData(subscribeForm);
       const name = String(formData.get('name')).trim();
       const email = String(formData.get('email')).trim();
-      const turnstileToken = String(formData.get('cf-turnstile-response') || '');
+      const turnstileToken = getTurnstileToken(subscribeTurnstileWidget);
 
       if (!turnstileToken) {
         subscribeStatus.textContent = 'Selesaikan verifikasi keamanan terlebih dahulu.';
@@ -1226,6 +1354,7 @@
       try {
         const verificationData = new FormData();
         verificationData.append('cf-turnstile-response', turnstileToken);
+        verificationData.append('expected-action', 'subscribe');
         const verificationResponse = await fetch('verify-turnstile.php', {
           method: 'POST',
           headers: { Accept: 'application/json' },
