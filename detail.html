@@ -1,0 +1,678 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Detail story Auriga Nusantara">
+  <title>Detail Story | Auriga Nusantara</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet"
+  >
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            auriga: {
+              red: '#bc4a3c',
+              cream: '#f5f0e8',
+              ink: '#1a1a1a',
+              muted: '#7a6e60',
+              line: '#e2d8cc'
+            }
+          },
+          fontFamily: {
+            sans: ['Poppins', 'sans-serif']
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    body {
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .article-copy p + p {
+      margin-top: 1.75rem;
+    }
+  </style>
+</head>
+
+<body class="bg-white font-sans text-auriga-ink">
+  <header class="sticky top-0 z-50 border-b border-[#e5e7eb] bg-white">
+    <section class="hidden px-4 py-4 sm:block">
+      <div class="mx-auto flex max-w-7xl justify-end">
+        <div class="flex space-x-2 text-sm text-gray-300">
+          <a href="#" class="cursor-pointer hover:text-[#376A64]">EN</a>
+          <div class="border-l border-gray-300"></div>
+          <a href="#" class="cursor-pointer font-bold text-[#376A64]">ID</a>
+        </div>
+      </div>
+
+      <div class="mx-auto mt-3 flex w-full max-w-7xl items-center justify-between">
+        <a href="../id/" aria-label="Simontini">
+          <img src="img/logo-simontini.png" alt="Simontini" class="h-12">
+        </a>
+        <nav class="flex items-center justify-end gap-6 text-[#376A64]" aria-label="Navigasi utama">
+          <a href="../id/" class="py-2 font-normal hover:border-b hover:border-[#376A64]">ABOUT</a>
+          <a href="../id/insight" class="py-2 font-normal hover:border-b hover:border-[#376A64]">INSIGHT</a>
+          <a href="../id/mapndata" class="py-2 font-normal hover:border-b hover:border-[#376A64]">MAP &amp; DATA</a>
+          <a href="../id/download" class="py-2 font-normal hover:border-b hover:border-[#376A64]">DOWNLOADS</a>
+        </nav>
+      </div>
+    </section>
+
+    <div class="flex items-center justify-between bg-[#376A64] px-4 py-3 sm:hidden">
+      <button data-mobile-open type="button" class="text-white" aria-label="Buka menu" aria-expanded="false">
+        <svg class="h-8 w-8" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 5a1 1 0 011-1h7a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+        </svg>
+      </button>
+      <div class="flex gap-2 text-sm">
+        <a href="#" class="text-gray-300">EN</a>
+        <span class="border-l border-white"></span>
+        <a href="#" class="font-bold text-white">ID</a>
+      </div>
+    </div>
+
+    <div data-mobile-panel class="fixed inset-0 z-[70] hidden sm:hidden">
+      <button data-mobile-close class="absolute inset-0 h-full w-full bg-black/40" aria-label="Tutup menu"></button>
+      <nav class="relative h-full w-3/4 max-w-xs overflow-y-auto bg-[#376A64] px-6 py-5 text-white" aria-label="Navigasi mobile">
+        <button data-mobile-close type="button" class="mb-10 text-3xl" aria-label="Tutup menu">×</button>
+        <div class="flex flex-col divide-y divide-white/25 text-lg font-semibold">
+          <a href="../id/" class="py-4">HOME</a>
+          <a href="../id/" class="py-4">ABOUT</a>
+          <a href="../id/insight" class="py-4">INSIGHT</a>
+          <a href="../id/mapndata" class="py-4">MAP &amp; DATA</a>
+          <a href="../id/download" class="py-4">DOWNLOADS</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <script>
+    (() => {
+      const panel = document.querySelector('[data-mobile-panel]');
+      const openButton = document.querySelector('[data-mobile-open]');
+      const closeButtons = document.querySelectorAll('[data-mobile-close]');
+      const toggleMenu = (open) => {
+        panel.classList.toggle('hidden', !open);
+        openButton.setAttribute('aria-expanded', String(open));
+        document.body.classList.toggle('overflow-hidden', open);
+      };
+      openButton.addEventListener('click', () => toggleMenu(true));
+      closeButtons.forEach((button) => button.addEventListener('click', () => toggleMenu(false)));
+    })();
+  </script>
+
+  <main class="pb-24">
+    <article>
+      <figure class="mx-auto max-w-[1200px] px-5 pt-9 sm:px-8 sm:pt-14 lg:px-12">
+        <div class="aspect-[16/9] overflow-hidden bg-[#e8e8e8]">
+          <img
+            src="img/raja-ampat.jpg"
+            alt="Bentang alam kepulauan Raja Ampat"
+            class="h-full w-full object-cover"
+            fetchpriority="high"
+          >
+        </div>
+      </figure>
+
+      <div class="mx-auto max-w-[720px] px-5 pt-10 sm:px-8 sm:pt-14">
+        <p class="mb-4 text-[10px] font-bold uppercase tracking-[0.18em] text-auriga-red">
+          Story · Bentang Alam
+        </p>
+
+        <div class="flex items-start justify-between gap-5">
+          <h1 class="min-w-0 flex-1 text-3xl font-black uppercase leading-[1.08] tracking-[-0.045em] sm:text-4xl">
+            Raja Ampat di Persimpangan
+          </h1>
+          <button
+            data-subscribe-open
+            type="button"
+            class="shrink-0 rounded-full bg-auriga-red px-4 py-2.5 text-[9px] font-bold uppercase tracking-[0.1em] text-white transition hover:bg-[#a63d31] sm:px-5 sm:text-[10px]"
+          >
+            Subscribe
+          </button>
+        </div>
+
+        <div class="article-copy mt-9 text-[15px] leading-[1.85] text-auriga-ink/85 sm:text-[17px]">
+          <p>
+            Data dalam Simontini bersifat terbuka dan dapat diakses oleh publik sesuai lisensi
+            Creative Commons CC-CY-SA, dengan mematuhi aturan penggunaannya. Pengutipan terhadap
+            data dalam Simontini diharapkan mengikuti format yang berlaku.
+          </p>
+
+          <p>
+            Bentang alam Raja Ampat menyimpan kekayaan ekologis yang sangat penting. Gugusan
+            pulau, hutan alam, pesisir, dan lautnya membentuk satu kesatuan ekosistem yang
+            menopang kehidupan masyarakat sekaligus berbagai spesies endemik Indonesia.
+          </p>
+
+          <figure class="my-10">
+            <div class="aspect-[16/10] overflow-hidden bg-[#e8e8e8]">
+              <img
+                src="img/tambang.jpg"
+                alt="Aktivitas industri pada bentang alam berhutan"
+                class="h-full w-full object-cover"
+                loading="lazy"
+                decoding="async"
+              >
+            </div>
+            <figcaption class="mt-3 text-[11px] leading-5 text-auriga-muted">
+              Perubahan bentang alam yang terpantau melalui dokumentasi lapangan dan analisis
+              spasial. © Auriga Nusantara.
+            </figcaption>
+          </figure>
+
+          <p>
+            Tekanan terhadap kawasan ini terus meningkat seiring berkembangnya kegiatan
+            ekstraktif dan pembangunan infrastruktur. Ketika tutupan hutan dibuka, dampaknya
+            tidak berhenti pada lokasi kegiatan, tetapi dapat memengaruhi aliran air, pesisir,
+            mata pencaharian masyarakat, dan habitat satwa.
+          </p>
+
+          <p>
+            Pemantauan menggunakan citra satelit membantu mengenali perubahan secara lebih
+            cepat. Temuan tersebut kemudian diperiksa bersama informasi perizinan, fungsi
+            kawasan, tutupan hutan, serta dokumentasi lapangan agar publik memperoleh gambaran
+            yang lebih lengkap.
+          </p>
+
+          <figure class="my-10">
+            <div class="aspect-[16/10] overflow-hidden bg-[#e8e8e8]">
+              <img
+                src="img/batang-toru.jpg"
+                alt="Bentang alam hutan Batang Toru"
+                class="h-full w-full object-cover"
+                loading="lazy"
+                decoding="async"
+              >
+            </div>
+            <figcaption class="mt-3 text-[11px] leading-5 text-auriga-muted">
+              Tutupan hutan alam merupakan bagian penting dari sistem ekologis dan kehidupan
+              masyarakat di sekitarnya. © Auriga Nusantara.
+            </figcaption>
+          </figure>
+
+          <p>
+            Perlindungan Raja Ampat membutuhkan kebijakan yang menempatkan keselamatan ekologis
+            sebagai pertimbangan utama. Keterbukaan data, partisipasi masyarakat lokal, dan
+            pengawasan terhadap perizinan menjadi bagian penting untuk memastikan kekayaan alam
+            ini tetap terjaga.
+          </p>
+
+          <section class="relative mt-20" aria-label="Konten pembaruan">
+            <span
+              class="absolute -left-7 top-1.5 h-4 w-4 rounded-full bg-auriga-red ring-8 ring-[#f6ebe8] sm:-left-10"
+              aria-hidden="true"
+            ></span>
+
+            <p>
+              Pemantauan terbaru menunjukkan bahwa perubahan di sekitar bentang alam masih
+              berlangsung. Informasi baru ini melengkapi temuan sebelumnya dan membantu publik
+              memahami perkembangan kondisi kawasan secara lebih utuh.
+            </p>
+
+            <p>
+              Pembaruan akan ditempatkan secara berurutan di bagian paling bawah artikel. Dengan
+              begitu, isi awal tetap dapat dibaca sebagai konteks, sementara perkembangan baru
+              terlihat jelas tanpa mengubah susunan cerita yang telah diterbitkan.
+            </p>
+          </section>
+        </div>
+
+        <section class="mt-16 border-t border-auriga-line pt-10" aria-labelledby="judul-komentar">
+          <div class="flex items-end justify-between gap-5">
+            <div>
+              <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-auriga-red">
+                Diskusi
+              </p>
+              <h2 id="judul-komentar" class="mt-2 text-2xl font-black tracking-[-0.035em]">
+                Komentar
+              </h2>
+            </div>
+            <p id="comment-count" class="text-xs text-auriga-muted">0 komentar</p>
+          </div>
+
+          <form id="comment-form" class="mt-8 rounded-xl border border-auriga-line bg-[#faf8f5] p-5 sm:p-6">
+            <div>
+              <label for="comment-name" class="text-[11px] font-bold uppercase tracking-[0.12em] text-auriga-muted">
+                Nama
+              </label>
+              <input
+                id="comment-name"
+                name="name"
+                type="text"
+                maxlength="60"
+                required
+                autocomplete="name"
+                placeholder="Tulis nama Anda"
+                class="mt-2 w-full border-0 border-b border-auriga-line bg-transparent px-0 py-3 text-sm outline-none transition placeholder:text-auriga-muted/55 focus:border-auriga-red focus:ring-0"
+              >
+            </div>
+
+            <div class="mt-6">
+              <label for="comment-message" class="text-[11px] font-bold uppercase tracking-[0.12em] text-auriga-muted">
+                Komentar
+              </label>
+              <textarea
+                id="comment-message"
+                name="message"
+                rows="4"
+                maxlength="1000"
+                required
+                placeholder="Tulis tanggapan Anda..."
+                class="mt-2 w-full resize-y rounded-lg border border-auriga-line bg-white p-4 text-sm leading-6 outline-none transition placeholder:text-auriga-muted/55 focus:border-auriga-red focus:ring-2 focus:ring-auriga-red/10"
+              ></textarea>
+            </div>
+
+            <div class="mt-5 flex items-center justify-between gap-4">
+              <p id="comment-status" class="text-xs text-auriga-muted" role="status" aria-live="polite"></p>
+              <button
+                type="submit"
+                class="rounded-full bg-auriga-red px-5 py-3 text-[11px] font-bold uppercase tracking-[0.12em] text-white transition hover:bg-[#a63d31] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-auriga-red"
+              >
+                Kirim komentar
+              </button>
+            </div>
+          </form>
+
+          <div id="comment-list" class="mt-9 space-y-7"></div>
+          <p id="comment-empty" class="mt-8 text-sm text-auriga-muted">
+            Belum ada komentar. Jadilah yang pertama memberi tanggapan.
+          </p>
+        </section>
+      </div>
+    </article>
+
+  </main>
+
+  <div
+    data-subscribe-modal
+    class="fixed inset-0 z-[100] hidden items-center justify-center p-4"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="subscribe-title"
+  >
+    <button data-subscribe-close class="absolute inset-0 bg-black/55" aria-label="Tutup popup subscribe"></button>
+
+    <div class="relative z-10 w-full max-w-lg rounded-2xl bg-white p-6 shadow-2xl sm:p-8">
+      <button
+        data-subscribe-close
+        type="button"
+        class="absolute right-4 top-3 text-3xl leading-none text-auriga-muted transition hover:text-auriga-ink"
+        aria-label="Tutup popup"
+      >
+        ×
+      </button>
+
+      <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-auriga-red">
+        Ikuti pembaruan
+      </p>
+      <h2 id="subscribe-title" class="mt-2 pr-8 text-2xl font-black tracking-[-0.04em] sm:text-3xl">
+        Pilih jenis langganan
+      </h2>
+      <p class="mt-3 text-sm leading-6 text-auriga-muted">
+        Kami akan mengirimkan pemberitahuan melalui email ketika terdapat pembaruan baru.
+      </p>
+
+      <form data-subscribe-form class="mt-6">
+        <div class="space-y-3">
+          <label class="flex cursor-pointer items-start gap-3 rounded-xl border border-auriga-line p-4 transition hover:border-auriga-red">
+            <input type="radio" name="scope" value="story" checked class="mt-1 accent-[#bc4a3c]">
+            <span>
+              <strong class="block text-sm">Story ini saja</strong>
+              <span class="mt-1 block text-xs leading-5 text-auriga-muted">
+                Dapatkan pemberitahuan hanya saat “Raja Ampat di Persimpangan” diperbarui.
+              </span>
+            </span>
+          </label>
+
+          <label class="flex cursor-pointer items-start gap-3 rounded-xl border border-auriga-line p-4 transition hover:border-auriga-red">
+            <input type="radio" name="scope" value="all" class="mt-1 accent-[#bc4a3c]">
+            <span>
+              <strong class="block text-sm">Semua story</strong>
+              <span class="mt-1 block text-xs leading-5 text-auriga-muted">
+                Dapatkan pemberitahuan untuk story baru dan seluruh pembaruan Auriga Nusantara.
+              </span>
+            </span>
+          </label>
+        </div>
+
+        <label for="subscribe-email-detail" class="sr-only">Alamat email</label>
+        <input
+          id="subscribe-email-detail"
+          name="email"
+          type="email"
+          required
+          autocomplete="email"
+          placeholder="Alamat email Anda"
+          class="mt-5 w-full rounded-full border border-auriga-line bg-white px-5 py-3.5 text-sm outline-none focus:border-auriga-red focus:ring-2 focus:ring-auriga-red/10"
+        >
+
+        <button
+          type="submit"
+          class="mt-3 w-full rounded-full bg-auriga-red px-6 py-3.5 text-[11px] font-bold uppercase tracking-[0.12em] text-white transition hover:bg-[#a63d31]"
+        >
+          Aktifkan langganan
+        </button>
+        <p data-subscribe-status class="mt-3 text-center text-xs text-auriga-muted" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+
+  <footer class="h-32 bg-gradient-to-b from-white to-[#dcefeb]" aria-hidden="true"></footer>
+
+  <template id="comment-template">
+    <article class="border-b border-auriga-line pb-7">
+      <div class="flex items-start gap-4">
+        <div
+          data-comment-avatar
+          class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-auriga-cream text-sm font-black uppercase text-auriga-red"
+          aria-hidden="true"
+        ></div>
+        <div class="min-w-0 flex-1">
+          <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+            <h3 data-comment-name class="text-sm font-bold"></h3>
+            <time data-comment-date class="text-[10px] uppercase tracking-[0.08em] text-auriga-muted"></time>
+          </div>
+          <p data-comment-message class="mt-2 whitespace-pre-line text-sm leading-6 text-auriga-ink/75"></p>
+          <button
+            data-reply-toggle
+            type="button"
+            class="mt-3 text-[10px] font-bold uppercase tracking-[0.12em] text-auriga-red transition hover:text-[#8f3027]"
+          >
+            Balas
+          </button>
+
+          <form data-reply-form class="mt-4 hidden rounded-lg border border-auriga-line bg-[#faf8f5] p-4">
+            <input
+              name="replyName"
+              type="text"
+              maxlength="60"
+              required
+              autocomplete="name"
+              aria-label="Nama untuk balasan"
+              placeholder="Nama Anda"
+              class="w-full border-0 border-b border-auriga-line bg-transparent px-0 py-2 text-xs outline-none placeholder:text-auriga-muted/55 focus:border-auriga-red focus:ring-0"
+            >
+            <textarea
+              name="replyMessage"
+              rows="3"
+              maxlength="1000"
+              required
+              aria-label="Isi balasan"
+              placeholder="Tulis balasan..."
+              class="mt-3 w-full resize-y rounded-md border border-auriga-line bg-white p-3 text-xs leading-5 outline-none placeholder:text-auriga-muted/55 focus:border-auriga-red focus:ring-2 focus:ring-auriga-red/10"
+            ></textarea>
+            <div class="mt-3 flex items-center justify-between gap-3">
+              <p data-reply-status class="text-[10px] text-auriga-muted" role="status"></p>
+              <button
+                type="submit"
+                class="rounded-full bg-auriga-red px-4 py-2 text-[10px] font-bold uppercase tracking-[0.1em] text-white"
+              >
+                Kirim balasan
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div data-reply-list class="mt-6 space-y-6"></div>
+    </article>
+  </template>
+
+  <script>
+    const commentStorageKey = 'auriga-story-comments';
+    const commentForm = document.getElementById('comment-form');
+    const commentList = document.getElementById('comment-list');
+    const commentEmpty = document.getElementById('comment-empty');
+    const commentCount = document.getElementById('comment-count');
+    const commentStatus = document.getElementById('comment-status');
+    const commentTemplate = document.getElementById('comment-template');
+    const defaultComments = [
+      {
+        id: 'comment-rina',
+        name: 'Rina Mahardika',
+        message: 'Penyajian datanya sangat membantu untuk memahami perubahan bentang alam di Raja Ampat. Semoga pembaruannya terus dilengkapi dengan data lapangan.',
+        createdAt: '2026-07-28T09:15:00+07:00',
+        replies: [
+          {
+            id: 'reply-auriga-rina',
+            name: 'Tim Auriga',
+            message: 'Terima kasih atas masukannya. Dokumentasi lapangan dan data terbaru akan kami tambahkan secara bertahap pada bagian pembaruan.',
+            createdAt: '2026-07-28T13:10:00+07:00',
+            replies: [
+              {
+                id: 'reply-rina-auriga',
+                name: 'Rina Mahardika',
+                message: 'Baik, saya akan mengikuti pembaruan artikel ini. Terima kasih atas tanggapannya.',
+                createdAt: '2026-07-28T15:25:00+07:00',
+                replies: []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: 'comment-dimas',
+        name: 'Dimas Pratama',
+        message: 'Apakah data spasial yang digunakan dalam analisis ini juga dapat diunduh oleh publik untuk kebutuhan penelitian?',
+        createdAt: '2026-07-27T14:40:00+07:00',
+        replies: [
+          {
+            id: 'reply-auriga-dimas',
+            name: 'Tim Data Auriga',
+            message: 'Data publik dapat digunakan sesuai ketentuan lisensi yang dicantumkan. Tautan unduhan akan kami sertakan setelah proses verifikasi selesai.',
+            createdAt: '2026-07-27T17:05:00+07:00',
+            replies: []
+          }
+        ]
+      },
+      {
+        id: 'comment-siti',
+        name: 'Siti Rahma',
+        message: 'Artikel yang menarik. Bagian mengenai keterlibatan masyarakat lokal sebaiknya dibahas lebih rinci pada pembaruan berikutnya.',
+        createdAt: '2026-07-26T11:20:00+07:00',
+        replies: []
+      }
+    ];
+
+    function createCommentId() {
+      return window.crypto && crypto.randomUUID
+        ? crypto.randomUUID()
+        : `comment-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+    }
+
+    function normalizeComment(comment) {
+      return {
+        id: comment.id || createCommentId(),
+        name: comment.name || 'Anonim',
+        message: comment.message || '',
+        createdAt: comment.createdAt || new Date().toISOString(),
+        replies: Array.isArray(comment.replies)
+          ? comment.replies.map(normalizeComment)
+          : []
+      };
+    }
+
+    function getComments() {
+      try {
+        const savedComments = localStorage.getItem(commentStorageKey);
+        const comments = savedComments === null ? defaultComments : JSON.parse(savedComments);
+        return Array.isArray(comments) ? comments.map(normalizeComment) : [];
+      } catch (error) {
+        return defaultComments.map(normalizeComment);
+      }
+    }
+
+    function saveComments(comments) {
+      localStorage.setItem(commentStorageKey, JSON.stringify(comments));
+    }
+
+    function countComments(comments) {
+      return comments.reduce(
+        (total, comment) => total + 1 + countComments(comment.replies || []),
+        0
+      );
+    }
+
+    function findComment(comments, targetId) {
+      for (const comment of comments) {
+        if (comment.id === targetId) return comment;
+        const nestedComment = findComment(comment.replies || [], targetId);
+        if (nestedComment) return nestedComment;
+      }
+      return null;
+    }
+
+    function createCommentElement(comment, depth = 0) {
+      const item = commentTemplate.content.firstElementChild.cloneNode(true);
+
+      if (depth > 0) {
+        item.classList.add('ml-5', 'border-l', 'pl-4', 'sm:ml-10');
+      }
+
+      item.querySelector('[data-comment-avatar]').textContent = comment.name.charAt(0);
+      item.querySelector('[data-comment-name]').textContent = comment.name;
+      item.querySelector('[data-comment-message]').textContent = comment.message;
+      item.querySelector('[data-comment-date]').textContent = new Date(comment.createdAt)
+        .toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+
+      const replyToggle = item.querySelector('[data-reply-toggle]');
+      const replyForm = item.querySelector('[data-reply-form]');
+      const replyStatus = item.querySelector('[data-reply-status]');
+      const replyList = item.querySelector('[data-reply-list]');
+
+      replyToggle.addEventListener('click', () => {
+        replyForm.classList.toggle('hidden');
+        if (!replyForm.classList.contains('hidden')) {
+          replyForm.querySelector('input').focus();
+        }
+      });
+
+      replyForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const formData = new FormData(replyForm);
+        const name = String(formData.get('replyName')).trim();
+        const message = String(formData.get('replyMessage')).trim();
+
+        if (!name || !message) {
+          replyStatus.textContent = 'Nama dan balasan wajib diisi.';
+          return;
+        }
+
+        const comments = getComments();
+        const parentComment = findComment(comments, comment.id);
+        if (!parentComment) return;
+
+        parentComment.replies.push({
+          id: createCommentId(),
+          name,
+          message,
+          createdAt: new Date().toISOString(),
+          replies: []
+        });
+        saveComments(comments);
+        renderComments();
+      });
+
+      (comment.replies || []).forEach((reply) => {
+        replyList.appendChild(createCommentElement(reply, depth + 1));
+      });
+
+      return item;
+    }
+
+    function renderComments() {
+      const comments = getComments();
+      saveComments(comments);
+      commentList.replaceChildren();
+      commentCount.textContent = `${countComments(comments)} komentar`;
+      commentEmpty.classList.toggle('hidden', comments.length > 0);
+
+      [...comments].reverse().forEach((comment) => {
+        commentList.appendChild(createCommentElement(comment));
+      });
+    }
+
+    commentForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      const formData = new FormData(commentForm);
+      const name = String(formData.get('name')).trim();
+      const message = String(formData.get('message')).trim();
+
+      if (!name || !message) {
+        commentStatus.textContent = 'Nama dan komentar wajib diisi.';
+        return;
+      }
+
+      const comments = getComments();
+      comments.push({
+        id: createCommentId(),
+        name,
+        message,
+        createdAt: new Date().toISOString(),
+        replies: []
+      });
+      saveComments(comments);
+
+      commentForm.reset();
+      commentStatus.textContent = 'Komentar berhasil ditambahkan.';
+      renderComments();
+    });
+
+    renderComments();
+
+    const subscribeModal = document.querySelector('[data-subscribe-modal]');
+    const subscribeOpen = document.querySelector('[data-subscribe-open]');
+    const subscribeClose = document.querySelectorAll('[data-subscribe-close]');
+    const subscribeForm = document.querySelector('[data-subscribe-form]');
+    const subscribeStatus = document.querySelector('[data-subscribe-status]');
+
+    function toggleSubscribeModal(open) {
+      subscribeModal.classList.toggle('hidden', !open);
+      subscribeModal.classList.toggle('flex', open);
+      document.body.classList.toggle('overflow-hidden', open);
+      if (open) {
+        setTimeout(() => subscribeForm.querySelector('input[type="radio"]').focus(), 0);
+      }
+    }
+
+    subscribeOpen.addEventListener('click', () => toggleSubscribeModal(true));
+    subscribeClose.forEach((button) => {
+      button.addEventListener('click', () => toggleSubscribeModal(false));
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && !subscribeModal.classList.contains('hidden')) {
+        toggleSubscribeModal(false);
+      }
+    });
+
+    subscribeForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const formData = new FormData(subscribeForm);
+      const subscription = {
+        email: String(formData.get('email')).trim(),
+        scope: String(formData.get('scope')),
+        story: 'Raja Ampat di Persimpangan'
+      };
+      localStorage.setItem('auriga-story-subscription', JSON.stringify(subscription));
+      subscribeStatus.textContent =
+        subscription.scope === 'story'
+          ? 'Berhasil. Anda akan menerima pembaruan untuk story ini.'
+          : 'Berhasil. Anda akan menerima pembaruan seluruh story.';
+      subscribeForm.reset();
+    });
+  </script>
+</body>
+</html>

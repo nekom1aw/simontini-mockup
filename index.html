@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Kumpulan presentasi dan berita Auriga Nusantara">
+  <title>Presentasi & Berita | Auriga Nusantara</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet"
+  >
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            auriga: {
+              red: '#bc4a3c',
+              cream: '#f5f0e8',
+              ink: '#1a1a1a',
+              muted: '#7a6e60',
+              line: '#e2d8cc'
+            }
+          },
+          fontFamily: {
+            sans: ['Poppins', 'sans-serif']
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .story-card img {
+      transition: transform 500ms cubic-bezier(.22, 1, .36, 1);
+    }
+
+    .story-card:hover img {
+      transform: scale(1.035);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .story-card img {
+        transition: none;
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-white font-sans text-auriga-ink">
+  <header class="sticky top-0 z-50 border-b border-[#e5e7eb] bg-white">
+    <section class="hidden px-4 py-4 sm:block">
+      <div class="mx-auto flex max-w-7xl justify-end">
+        <div class="flex space-x-2 text-sm text-gray-300">
+          <a href="#" class="cursor-pointer hover:text-[#376A64]">EN</a>
+          <div class="border-l border-gray-300"></div>
+          <a href="#" class="cursor-pointer font-bold text-[#376A64]">ID</a>
+        </div>
+      </div>
+
+      <div class="mx-auto mt-3 flex w-full max-w-7xl items-center justify-between">
+        <a href="../id/" aria-label="Simontini">
+          <img src="img/logo-simontini.png" alt="Simontini" class="h-12">
+        </a>
+        <nav class="flex items-center justify-end gap-6 text-[#376A64]" aria-label="Navigasi utama">
+          <a href="../id/" class="py-2 font-normal hover:border-b hover:border-[#376A64]">ABOUT</a>
+          <a href="../id/insight" class="py-2 font-normal hover:border-b hover:border-[#376A64]">INSIGHT</a>
+          <a href="../id/mapndata" class="py-2 font-normal hover:border-b hover:border-[#376A64]">MAP &amp; DATA</a>
+          <a href="../id/download" class="py-2 font-normal hover:border-b hover:border-[#376A64]">DOWNLOADS</a>
+        </nav>
+      </div>
+    </section>
+
+    <div class="flex items-center justify-between bg-[#376A64] px-4 py-3 sm:hidden">
+      <button data-mobile-open type="button" class="text-white" aria-label="Buka menu" aria-expanded="false">
+        <svg class="h-8 w-8" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 5a1 1 0 011-1h7a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+        </svg>
+      </button>
+      <div class="flex gap-2 text-sm">
+        <a href="#" class="text-gray-300">EN</a>
+        <span class="border-l border-white"></span>
+        <a href="#" class="font-bold text-white">ID</a>
+      </div>
+    </div>
+
+    <div data-mobile-panel class="fixed inset-0 z-[70] hidden sm:hidden">
+      <button data-mobile-close class="absolute inset-0 h-full w-full bg-black/40" aria-label="Tutup menu"></button>
+      <nav class="relative h-full w-3/4 max-w-xs overflow-y-auto bg-[#376A64] px-6 py-5 text-white" aria-label="Navigasi mobile">
+        <button data-mobile-close type="button" class="mb-10 text-3xl" aria-label="Tutup menu">×</button>
+        <div class="flex flex-col divide-y divide-white/25 text-lg font-semibold">
+          <a href="../id/" class="py-4">HOME</a>
+          <a href="../id/" class="py-4">ABOUT</a>
+          <a href="../id/insight" class="py-4">INSIGHT</a>
+          <a href="../id/mapndata" class="py-4">MAP &amp; DATA</a>
+          <a href="../id/download" class="py-4">DOWNLOADS</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <script>
+    (() => {
+      const panel = document.querySelector('[data-mobile-panel]');
+      const openButton = document.querySelector('[data-mobile-open]');
+      const closeButtons = document.querySelectorAll('[data-mobile-close]');
+      const toggleMenu = (open) => {
+        panel.classList.toggle('hidden', !open);
+        openButton.setAttribute('aria-expanded', String(open));
+        document.body.classList.toggle('overflow-hidden', open);
+      };
+      openButton.addEventListener('click', () => toggleMenu(true));
+      closeButtons.forEach((button) => button.addEventListener('click', () => toggleMenu(false)));
+    })();
+  </script>
+
+  <section class="bg-[#239b84] px-5 py-10 text-center text-white sm:py-12">
+    <div class="mx-auto max-w-4xl">
+      <h1 class="text-3xl font-black uppercase tracking-[-0.03em] sm:text-4xl">
+        STADI
+      </h1>
+      <p class="mx-auto mt-4 max-w-3xl text-sm font-semibold leading-7 sm:text-lg sm:leading-7">
+        Data dalam Simontini bersifat terbuka dan dapat diakses oleh publik sesuai lisensi
+        Creative Commons CC-CY-SA, dengan mematuhi aturan penggunaannya. Pengutipan terhadap
+        data dalam Simontini harap mengikuti format yang berlaku.
+      </p>
+    </div>
+  </section>
+
+  <main>
+    <section id="publikasi" class="scroll-mt-24">
+      <div class="mx-auto max-w-[1440px] px-5 py-14 sm:px-8 sm:py-20 lg:px-12 lg:py-24">
+        <div class="space-y-24 sm:space-y-28">
+          <section id="agustus" class="scroll-mt-40" aria-labelledby="judul-agustus">
+            <h2 id="judul-agustus" class="sr-only">Story Agustus</h2>
+            <div data-month="agustus" class="grid grid-cols-1 gap-x-6 gap-y-14 md:grid-cols-2 xl:grid-cols-4 xl:gap-x-7"></div>
+          </section>
+
+          <section id="september" class="scroll-mt-40" aria-labelledby="judul-september">
+            <h2 id="judul-september" class="sr-only">Story September</h2>
+            <div data-month="september" class="grid grid-cols-1 gap-x-6 gap-y-14 md:grid-cols-2 xl:grid-cols-4 xl:gap-x-7"></div>
+          </section>
+
+          <section id="oktober" class="scroll-mt-40" aria-labelledby="judul-oktober">
+            <h2 id="judul-oktober" class="sr-only">Story Oktober</h2>
+            <div data-month="oktober" class="grid grid-cols-1 gap-x-6 gap-y-14 md:grid-cols-2 xl:grid-cols-4 xl:gap-x-7"></div>
+          </section>
+
+          <section id="november" class="scroll-mt-40" aria-labelledby="judul-november">
+            <h2 id="judul-november" class="sr-only">Story November</h2>
+            <div data-month="november" class="grid grid-cols-1 gap-x-6 gap-y-14 md:grid-cols-2 xl:grid-cols-4 xl:gap-x-7"></div>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <template id="story-card-template">
+      <article class="story-card group">
+        <a href="#" class="block focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-auriga-red">
+          <div class="aspect-[16/10] overflow-hidden bg-[#e8e8e8]">
+            <img class="h-full w-full object-cover" alt="" loading="lazy" decoding="async">
+          </div>
+          <div class="pt-5">
+            <p data-card-meta class="mb-2 text-[10px] font-bold uppercase tracking-[0.16em] text-auriga-red"></p>
+            <h4 data-card-title class="text-lg font-black uppercase leading-[1.18] tracking-[-0.035em] transition group-hover:text-auriga-red"></h4>
+            <p data-card-description class="mt-3 text-[12px] leading-[1.75] text-auriga-ink/70"></p>
+            <span class="mt-4 inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.12em] text-auriga-red">
+              Baca story <span aria-hidden="true">→</span>
+            </span>
+          </div>
+        </a>
+      </article>
+    </template>
+  </main>
+
+  <footer class="bg-auriga-ink">
+    <div class="mx-auto flex max-w-[1440px] flex-col gap-3 px-5 py-9 text-xs text-white/55 sm:flex-row sm:items-center sm:justify-between sm:px-8 lg:px-12">
+      <p class="font-semibold uppercase tracking-[0.18em]">Auriga Nusantara</p>
+      <p>Informasi untuk perlindungan sumber daya alam Indonesia.</p>
+    </div>
+  </footer>
+
+  <script>
+    const storyData = {
+      agustus: [
+        {
+          title: 'Deforestasi dan Pembangunan PSN',
+          category: 'Kebijakan',
+          image: 'img/ipip.jpg',
+          alt: 'Kawasan industri di tengah bentang alam',
+          description: 'Melihat dampak pembangunan proyek strategis terhadap tutupan hutan alam Indonesia.'
+        },
+        {
+          title: 'Raja Ampat di Persimpangan',
+          category: 'Bentang Alam',
+          image: 'img/raja-ampat.jpg',
+          alt: 'Bentang alam kepulauan Raja Ampat',
+          description: 'Cerita mengenai nilai ekologis Raja Ampat dan tekanan industri yang terus berkembang.'
+        },
+        {
+          title: 'Jejak Tambang di Kawasan Hutan',
+          category: 'Pertambangan',
+          image: 'img/tambang.jpg',
+          alt: 'Aktivitas pertambangan di kawasan berhutan',
+          description: 'Membaca perubahan bentang alam melalui data spasial dan pemantauan lapangan.'
+        },
+        {
+          title: 'Masa Depan Habitat Orang Utan',
+          category: 'Konservasi',
+          image: 'img/habitat-orangutan.jpg',
+          alt: 'Orang utan di habitat hutan alam',
+          description: 'Kehilangan hutan mempersempit ruang hidup satwa endemik dan kawasan biodiversitas.'
+        }
+      ],
+      september: [
+        {
+          title: 'Hutan Alam dalam Konsesi',
+          category: 'Data',
+          image: 'img/konsesi-toba-pulp.jpg',
+          alt: 'Tutupan hutan alam di dalam area konsesi',
+          description: 'Menelusuri tutupan hutan yang masih tersisa di dalam berbagai wilayah perizinan.'
+        },
+        {
+          title: 'Tekanan Baru di Tanah Papua',
+          category: 'Bentang Alam',
+          image: 'img/sorong.jpg',
+          alt: 'Bentang alam di Tanah Papua',
+          description: 'Episentrum kehilangan hutan bergerak menuju wilayah dengan hutan alam yang luas.'
+        },
+        {
+          title: 'Ekspansi Sawit dan Deforestasi',
+          category: 'Perkebunan',
+          image: 'img/kebun-sawit-borneo.jpg',
+          alt: 'Area perkebunan sawit di sekitar hutan',
+          description: 'Mengamati perubahan tutupan hutan yang terjadi di dalam dan sekitar konsesi sawit.'
+        },
+        {
+          title: 'Kebun Kayu di Hutan Alam',
+          category: 'Kehutanan',
+          image: 'img/hte-kaltara.jpg',
+          alt: 'Tutupan hutan di Kalimantan Utara',
+          description: 'Pemberian izin kebun kayu pada hutan alam menciptakan risiko deforestasi terencana.'
+        },
+        {
+          title: 'Kawasan Konservasi Tertekan',
+          category: 'Konservasi',
+          image: 'img/rawa-singkil.jpg',
+          alt: 'Bentang alam Rawa Singkil',
+          description: 'Status konservasi belum selalu mampu menghentikan kehilangan hutan di lapangan.'
+        },
+        {
+          title: 'Membaca Hutan dari Satelit',
+          category: 'Teknologi',
+          image: 'img/rudp-3.jpg',
+          alt: 'Materi visual pemantauan hutan',
+          description: 'Citra Sentinel dan pembelajaran mesin membantu mendeteksi perubahan secara berkala.'
+        }
+      ],
+      oktober: [
+        {
+          title: 'Arah Baru Kebijakan Kehutanan',
+          category: 'Kebijakan',
+          image: 'img/rdpu-kehutanan-6.jpg',
+          alt: 'Diskusi publik mengenai kebijakan kehutanan',
+          description: 'Mengulas kebutuhan regulasi yang mampu melindungi seluruh hutan alam tersisa.'
+        },
+        {
+          title: 'Pangan, Energi, dan Air',
+          category: 'Analisis',
+          image: 'img/plta.jpg',
+          alt: 'Pembangunan infrastruktur pada bentang alam',
+          description: 'Program pembangunan berskala besar perlu menempatkan perlindungan hutan sebagai dasar.'
+        },
+        {
+          title: 'Pelepasan Kawasan Hutan',
+          category: 'Tata Ruang',
+          image: 'img/kawasan-hutan-produksi.jpg',
+          alt: 'Kawasan hutan produksi',
+          description: 'Perubahan status kawasan dapat menjadi pintu awal konversi tutupan hutan alam.'
+        },
+        {
+          title: 'Ketika Deforestasi Menjadi Legal',
+          category: 'Investigasi',
+          image: 'img/batang-toru.jpg',
+          alt: 'Bentang alam Batang Toru',
+          description: 'Legalitas izin tidak serta-merta menghilangkan dampak ekologis dari kehilangan hutan.'
+        },
+        {
+          title: 'Masa Depan Hutan Produksi',
+          category: 'Kehutanan',
+          image: 'img/hutan-berau-lestari.jpg',
+          alt: 'Tutupan hutan di area produksi',
+          description: 'Mencari pendekatan pengelolaan yang menjaga fungsi ekonomi sekaligus ekologi.'
+        }
+      ],
+      november: [
+        {
+          title: 'Status Deforestasi Indonesia 2025',
+          category: 'Laporan Utama',
+          image: 'img/ipip.jpg',
+          alt: 'Perubahan bentang alam akibat pembangunan',
+          description: 'Rangkuman temuan, angka, lokasi, dan faktor pendorong deforestasi sepanjang 2025.'
+        },
+        {
+          title: 'Episentrum Deforestasi Bergeser',
+          category: 'Data',
+          image: 'img/nabire.jpg',
+          alt: 'Bentang alam Nabire',
+          description: 'Data terbaru menunjukkan pergeseran tekanan menuju kawasan timur Indonesia.'
+        },
+        {
+          title: 'Melindungi Seluruh Hutan Alam',
+          category: 'Rekomendasi',
+          image: 'img/habitat-orangutan.jpg',
+          alt: 'Orang utan di dalam hutan alam',
+          description: 'Perlindungan perlu menjangkau hutan alam di dalam maupun di luar kawasan hutan.'
+        },
+        {
+          title: 'Enam Agenda untuk Pemerintah',
+          category: 'Rekomendasi',
+          image: 'img/rudp-5.jpg',
+          alt: 'Materi rekomendasi kebijakan kehutanan',
+          description: 'Langkah regulasi, tata ruang, kelembagaan, dan insentif untuk menekan deforestasi.'
+        }
+      ]
+    };
+
+    const cardTemplate = document.getElementById('story-card-template');
+
+    Object.entries(storyData).forEach(([month, stories]) => {
+      const container = document.querySelector(`[data-month="${month}"]`);
+
+      stories.forEach((story, index) => {
+        const card = cardTemplate.content.cloneNode(true);
+        const link = card.querySelector('a');
+        const image = card.querySelector('img');
+
+        link.href = 'detail.html';
+        link.setAttribute('aria-label', `Baca ${story.title}`);
+        image.src = story.image;
+        image.alt = story.alt;
+        card.querySelector('[data-card-meta]').textContent =
+          `${String(index + 1).padStart(2, '0')} · ${story.category}`;
+        card.querySelector('[data-card-title]').textContent = story.title;
+        card.querySelector('[data-card-description]').textContent = story.description;
+
+        container.appendChild(card);
+      });
+    });
+
+  </script>
+</body>
+</html>
