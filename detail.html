@@ -413,7 +413,7 @@
                 required
                 autocomplete="name"
                 placeholder="Nama Anda"
-                class="min-w-0 flex-1 border-0 bg-transparent px-1 py-2 text-base font-medium outline-none placeholder:font-normal placeholder:text-auriga-muted/55 focus:ring-0"
+                class="min-w-0 flex-1 border-x-0 border-t-0 border-b border-[#d9e1df] bg-transparent px-1 py-2 text-base font-medium outline-none transition placeholder:font-normal placeholder:text-auriga-muted/55 focus:border-[#376A64] focus:ring-0"
               >
             </div>
 
@@ -611,7 +611,7 @@
                 autocomplete="name"
                 aria-label="Nama untuk balasan"
                 placeholder="Nama Anda"
-                class="min-w-0 flex-1 border-0 bg-transparent px-1 py-2 text-sm font-medium outline-none placeholder:font-normal placeholder:text-auriga-muted/55 focus:ring-0"
+                class="min-w-0 flex-1 border-x-0 border-t-0 border-b border-[#d9e1df] bg-transparent px-1 py-2 text-sm font-medium outline-none transition placeholder:font-normal placeholder:text-auriga-muted/55 focus:border-[#376A64] focus:ring-0"
               >
             </div>
 
@@ -951,8 +951,13 @@
         threadToggle.type = 'button';
         threadToggle.className =
           'inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.1em] text-[#376A64] transition hover:text-[#2d5954]';
-        caret.textContent = '⌄';
-        caret.className = 'text-base leading-none transition-transform';
+        caret.innerHTML = `
+          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"></path>
+          </svg>
+        `;
+        caret.className =
+          'flex h-4 w-4 shrink-0 items-center justify-center transition-transform';
         threadToggle.append(caret, label);
         threadToggleSlot.append(threadToggle);
 
