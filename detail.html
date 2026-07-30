@@ -13,6 +13,7 @@
     rel="stylesheet"
   >
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   <script>
     tailwind.config = {
       theme: {
@@ -41,6 +42,50 @@
 
     .article-copy p + p {
       margin-top: 1.75rem;
+    }
+
+    .update-card-title,
+    .update-card-description {
+      display: -webkit-box;
+      overflow: hidden;
+      -webkit-box-orient: vertical;
+    }
+
+    .update-card-title {
+      -webkit-line-clamp: 1;
+    }
+
+    .update-card-description {
+      -webkit-line-clamp: 2;
+    }
+
+    .subscribe-modal {
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 200ms ease, visibility 200ms ease;
+    }
+
+    .subscribe-modal[data-open="true"] {
+      visibility: visible;
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .subscribe-dialog {
+      transform: translateY(14px) scale(.98);
+      transition: transform 250ms cubic-bezier(.22, 1, .36, 1);
+    }
+
+    .subscribe-modal[data-open="true"] .subscribe-dialog {
+      transform: translateY(0) scale(1);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .subscribe-modal,
+      .subscribe-dialog {
+        transition: none;
+      }
     }
   </style>
 </head>
@@ -126,9 +171,6 @@
       </figure>
 
       <div class="mx-auto max-w-[720px] px-5 pt-10 sm:px-8 sm:pt-14">
-        <p class="mb-4 text-[10px] font-bold uppercase tracking-[0.18em] text-auriga-red">
-          Story · Bentang Alam
-        </p>
 
         <div class="flex items-start justify-between gap-5">
           <h1 class="min-w-0 flex-1 text-3xl font-black uppercase leading-[1.08] tracking-[-0.045em] sm:text-4xl">
@@ -137,7 +179,7 @@
           <button
             data-subscribe-open
             type="button"
-            class="shrink-0 rounded-full bg-auriga-red px-4 py-2.5 text-[9px] font-bold uppercase tracking-[0.1em] text-white transition hover:bg-[#a63d31] sm:px-5 sm:text-[10px]"
+            class="shrink-0 rounded-lg bg-[#376A64] px-4 py-2.5 text-[9px] font-bold uppercase tracking-[0.1em] text-white transition hover:bg-[#2d5954] sm:px-5 sm:text-[10px]"
           >
             Subscribe
           </button>
@@ -209,30 +251,112 @@
             ini tetap terjaga.
           </p>
 
-          <section class="relative mt-20" aria-label="Konten pembaruan">
-            <span
-              class="absolute -left-7 top-1.5 h-4 w-4 rounded-full bg-auriga-red ring-8 ring-[#f6ebe8] sm:-left-10"
-              aria-hidden="true"
-            ></span>
+          <section
+            class="mt-20"
+            aria-label="Pembaruan story"
+          >
+            <div class="space-y-10">
+              <div id="pembaruan-raja-ampat" class="relative">
+                <time
+                  datetime="2025-07-30"
+                  class="mb-5 flex items-center gap-3 lg:absolute lg:-left-36 lg:top-3 lg:mb-0 lg:w-32 lg:justify-end"
+                >
+                  <span class="flex flex-col items-center text-center">
+                    <span class="text-xs font-black uppercase leading-none tracking-[0.1em] text-auriga-red">
+                      30 Jul
+                    </span>
+                    <span class="mt-1 text-sm font-black uppercase leading-none tracking-[0.12em] text-auriga-muted">
+                      2025
+                    </span>
+                  </span>
+                  <span
+                    class="h-4 w-4 shrink-0 rounded-full bg-[#376A64] ring-4 ring-[#e5efed]"
+                    aria-hidden="true"
+                  ></span>
+                </time>
 
-            <p>
-              Pemantauan terbaru menunjukkan bahwa perubahan di sekitar bentang alam masih
-              berlangsung. Informasi baru ini melengkapi temuan sebelumnya dan membantu publik
-              memahami perkembangan kondisi kawasan secara lebih utuh.
-            </p>
+                <article class="w-full overflow-hidden border border-auriga-line bg-white shadow-sm sm:aspect-[320/63]">
+                  <a href="#pembaruan-raja-ampat" class="group block sm:grid sm:h-full sm:grid-cols-[35%_1fr]">
+                    <div class="aspect-video overflow-hidden bg-[#e8e8e8] sm:h-full sm:aspect-auto">
+                      <img
+                        src="img/nabire.jpg"
+                        alt="Pemantauan bentang alam melalui citra dan dokumentasi lapangan"
+                        class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.025]"
+                        loading="lazy"
+                        decoding="async"
+                      >
+                    </div>
 
-            <p>
-              Pembaruan akan ditempatkan secara berurutan di bagian paling bawah artikel. Dengan
-              begitu, isi awal tetap dapat dibaca sebagai konteks, sementara perkembangan baru
-              terlihat jelas tanpa mengubah susunan cerita yang telah diterbitkan.
-            </p>
+                    <div class="flex min-h-0 flex-col overflow-hidden p-5 sm:h-full sm:p-3">
+                      <h3 class="update-card-title text-lg font-black uppercase leading-tight tracking-[-0.03em] transition group-hover:text-auriga-red">
+                        Pemantauan Terbaru Bentang Alam Raja Ampat
+                      </h3>
+                      <p class="update-card-description mt-2 text-xs leading-5 text-auriga-ink/70 sm:text-sm">
+                        Pemantauan terbaru menunjukkan bahwa perubahan di sekitar bentang alam masih
+                        berlangsung dan melengkapi temuan sebelumnya.
+                      </p>
+                      <span class="mt-4 inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.14em] text-auriga-red sm:mt-auto sm:pt-2">
+                        Go to <span aria-hidden="true">→</span>
+                      </span>
+                    </div>
+                  </a>
+                </article>
+              </div>
+
+              <div id="verifikasi-lapangan-raja-ampat" class="relative">
+                <time
+                  datetime="2025-07-15"
+                  class="mb-5 flex items-center gap-3 lg:absolute lg:-left-36 lg:top-3 lg:mb-0 lg:w-32 lg:justify-end"
+                >
+                  <span class="flex flex-col items-center text-center">
+                    <span class="text-xs font-black uppercase leading-none tracking-[0.1em] text-auriga-red">
+                      15 Jul
+                    </span>
+                    <span class="mt-1 text-sm font-black uppercase leading-none tracking-[0.12em] text-auriga-muted">
+                      2025
+                    </span>
+                  </span>
+                  <span
+                    class="h-4 w-4 shrink-0 rounded-full bg-[#376A64] ring-4 ring-[#e5efed]"
+                    aria-hidden="true"
+                  ></span>
+                </time>
+
+                <article class="w-full overflow-hidden border border-auriga-line bg-white shadow-sm sm:aspect-[320/63]">
+                  <a href="#verifikasi-lapangan-raja-ampat" class="group block sm:grid sm:h-full sm:grid-cols-[35%_1fr]">
+                    <div class="aspect-video overflow-hidden bg-[#e8e8e8] sm:h-full sm:aspect-auto">
+                      <img
+                        src="img/raja-ampat.jpg"
+                        alt="Bentang alam kepulauan Raja Ampat"
+                        class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.025]"
+                        loading="lazy"
+                        decoding="async"
+                      >
+                    </div>
+
+                    <div class="flex min-h-0 flex-col overflow-hidden p-5 sm:h-full sm:p-3">
+                      <h3 class="update-card-title text-lg font-black uppercase leading-tight tracking-[-0.03em] transition group-hover:text-auriga-red">
+                        Verifikasi Lapangan di Raja Ampat
+                      </h3>
+                      <p class="update-card-description mt-2 text-xs leading-5 text-auriga-ink/70 sm:text-sm">
+                        Dokumentasi lapangan terbaru digunakan untuk memeriksa perubahan tutupan
+                        lahan dan memperkuat hasil analisis citra satelit.
+                      </p>
+                      <span class="mt-4 inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.14em] text-auriga-red sm:mt-auto sm:pt-2">
+                        Go to <span aria-hidden="true">→</span>
+                      </span>
+                    </div>
+                  </a>
+                </article>
+              </div>
+            </div>
           </section>
         </div>
 
         <section class="mt-16 border-t border-auriga-line pt-10" aria-labelledby="judul-komentar">
           <div class="flex items-end justify-between gap-5">
             <div>
-              <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-auriga-red">
+              <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-[#376A64]">
                 Diskusi
               </p>
               <h2 id="judul-komentar" class="mt-2 text-2xl font-black tracking-[-0.035em]">
@@ -242,11 +366,16 @@
             <p id="comment-count" class="text-xs text-auriga-muted">0 komentar</p>
           </div>
 
-          <form id="comment-form" class="mt-8 rounded-xl border border-auriga-line bg-[#faf8f5] p-5 sm:p-6">
-            <div>
-              <label for="comment-name" class="text-[11px] font-bold uppercase tracking-[0.12em] text-auriga-muted">
-                Nama
-              </label>
+          <form id="comment-form" class="mt-8">
+            <div class="flex items-center gap-3 px-1">
+              <div
+                data-comment-form-avatar
+                class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#376A64] text-base font-semibold uppercase text-white"
+                aria-hidden="true"
+              >
+                A
+              </div>
+              <label for="comment-name" class="sr-only">Nama</label>
               <input
                 id="comment-name"
                 name="name"
@@ -254,35 +383,60 @@
                 maxlength="60"
                 required
                 autocomplete="name"
-                placeholder="Tulis nama Anda"
-                class="mt-2 w-full border-0 border-b border-auriga-line bg-transparent px-0 py-3 text-sm outline-none transition placeholder:text-auriga-muted/55 focus:border-auriga-red focus:ring-0"
+                placeholder="Nama Anda"
+                class="min-w-0 flex-1 border-0 bg-transparent px-1 py-2 text-base font-medium outline-none placeholder:font-normal placeholder:text-auriga-muted/55 focus:ring-0"
               >
             </div>
 
-            <div class="mt-6">
-              <label for="comment-message" class="text-[11px] font-bold uppercase tracking-[0.12em] text-auriga-muted">
-                Komentar
-              </label>
+            <div
+              data-comment-editor
+              class="mt-4 overflow-hidden bg-[#f5f5f5] transition-all duration-300 focus-within:bg-[#fafafa]"
+            >
+              <label for="comment-message" class="sr-only">Komentar</label>
               <textarea
                 id="comment-message"
                 name="message"
-                rows="4"
+                rows="1"
                 maxlength="1000"
                 required
-                placeholder="Tulis tanggapan Anda..."
-                class="mt-2 w-full resize-y rounded-lg border border-auriga-line bg-white p-4 text-sm leading-6 outline-none transition placeholder:text-auriga-muted/55 focus:border-auriga-red focus:ring-2 focus:ring-auriga-red/10"
+                placeholder="Apa pendapat Anda?"
+                class="block min-h-16 w-full resize-none border-0 bg-transparent px-5 py-4 text-sm leading-7 outline-none transition-all duration-300 placeholder:text-auriga-muted/45 focus:ring-0 sm:text-base"
               ></textarea>
+
+              <div data-comment-actions class="hidden items-center justify-between gap-4 border-t border-black/5 px-5 py-4">
+                <div class="flex items-center gap-5 text-auriga-muted" aria-label="Format komentar">
+                  <button data-format="bold" type="button" class="font-serif text-xl font-bold transition hover:text-auriga-ink" aria-label="Tebal">
+                    B
+                  </button>
+                  <button data-format="italic" type="button" class="font-serif text-xl italic transition hover:text-auriga-ink" aria-label="Miring">
+                    i
+                  </button>
+                  <button data-format="link" type="button" class="text-lg transition hover:text-auriga-ink" aria-label="Tautan">
+                    ↗
+                  </button>
+                </div>
+
+                <div class="flex items-center gap-3">
+                  <button
+                    data-comment-cancel
+                    type="button"
+                    class="px-3 py-2 text-xs font-medium text-auriga-ink transition hover:text-[#376A64]"
+                  >
+                    Batal
+                  </button>
+                  <button
+                    data-comment-submit
+                    type="submit"
+                    disabled
+                    class="rounded-full bg-[#376A64] px-5 py-2.5 text-[10px] font-bold uppercase tracking-[0.1em] text-white transition enabled:hover:bg-[#2d5954] disabled:cursor-not-allowed disabled:opacity-35"
+                  >
+                    Kirim
+                  </button>
+                </div>
+              </div>
             </div>
 
-            <div class="mt-5 flex items-center justify-between gap-4">
-              <p id="comment-status" class="text-xs text-auriga-muted" role="status" aria-live="polite"></p>
-              <button
-                type="submit"
-                class="rounded-full bg-auriga-red px-5 py-3 text-[11px] font-bold uppercase tracking-[0.12em] text-white transition hover:bg-[#a63d31] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-auriga-red"
-              >
-                Kirim komentar
-              </button>
-            </div>
+            <p id="comment-status" class="mt-3 min-h-5 text-xs text-auriga-muted" role="status" aria-live="polite"></p>
           </form>
 
           <div id="comment-list" class="mt-9 space-y-7"></div>
@@ -297,14 +451,22 @@
 
   <div
     data-subscribe-modal
-    class="fixed inset-0 z-[100] hidden items-center justify-center p-4"
+    data-open="false"
+    class="subscribe-modal fixed inset-0 z-[100] flex items-center justify-center p-4"
     role="dialog"
     aria-modal="true"
+    aria-hidden="true"
     aria-labelledby="subscribe-title"
+    aria-describedby="subscribe-description"
   >
-    <button data-subscribe-close class="absolute inset-0 bg-black/55" aria-label="Tutup popup subscribe"></button>
+    <button
+      data-subscribe-close
+      type="button"
+      class="absolute inset-0 h-full w-full bg-black/55"
+      aria-label="Tutup popup subscribe"
+    ></button>
 
-    <div class="relative z-10 w-full max-w-lg rounded-2xl bg-white p-6 shadow-2xl sm:p-8">
+    <div class="subscribe-dialog relative z-10 max-h-[calc(100vh-2rem)] w-full max-w-lg overflow-y-auto rounded-[2rem] bg-white p-6 text-left shadow-2xl sm:p-8">
       <button
         data-subscribe-close
         type="button"
@@ -315,56 +477,63 @@
       </button>
 
       <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-auriga-red">
-        Ikuti pembaruan
+        Pembaruan story
       </p>
       <h2 id="subscribe-title" class="mt-2 pr-8 text-2xl font-black tracking-[-0.04em] sm:text-3xl">
-        Pilih jenis langganan
+        Ikuti story ini
       </h2>
-      <p class="mt-3 text-sm leading-6 text-auriga-muted">
-        Kami akan mengirimkan pemberitahuan melalui email ketika terdapat pembaruan baru.
+      <p id="subscribe-description" class="mt-3 text-sm leading-6 text-auriga-muted">
+        Masukkan alamat email untuk menerima pembaruan khusus tentang “Raja Ampat di Persimpangan”.
       </p>
 
       <form data-subscribe-form class="mt-6">
-        <div class="space-y-3">
-          <label class="flex cursor-pointer items-start gap-3 rounded-xl border border-auriga-line p-4 transition hover:border-auriga-red">
-            <input type="radio" name="scope" value="story" checked class="mt-1 accent-[#bc4a3c]">
-            <span>
-              <strong class="block text-sm">Story ini saja</strong>
-              <span class="mt-1 block text-xs leading-5 text-auriga-muted">
-                Dapatkan pemberitahuan hanya saat “Raja Ampat di Persimpangan” diperbarui.
-              </span>
-            </span>
-          </label>
+        <label for="subscribe-name-detail" class="mb-2 block text-xs font-bold uppercase tracking-[0.1em] text-auriga-ink">
+          Nama lengkap
+        </label>
+        <input
+          id="subscribe-name-detail"
+          name="name"
+          type="text"
+          required
+          maxlength="80"
+          autocomplete="name"
+          placeholder="Nama Anda"
+          class="w-full rounded-full border border-auriga-line bg-white px-5 py-3.5 text-sm outline-none transition focus:border-[#376A64] focus:ring-2 focus:ring-[#376A64]/10"
+        >
 
-          <label class="flex cursor-pointer items-start gap-3 rounded-xl border border-auriga-line p-4 transition hover:border-auriga-red">
-            <input type="radio" name="scope" value="all" class="mt-1 accent-[#bc4a3c]">
-            <span>
-              <strong class="block text-sm">Semua story</strong>
-              <span class="mt-1 block text-xs leading-5 text-auriga-muted">
-                Dapatkan pemberitahuan untuk story baru dan seluruh pembaruan Auriga Nusantara.
-              </span>
-            </span>
-          </label>
-        </div>
-
-        <label for="subscribe-email-detail" class="sr-only">Alamat email</label>
+        <label for="subscribe-email-detail" class="mb-2 mt-4 block text-xs font-bold uppercase tracking-[0.1em] text-auriga-ink">
+          Alamat email
+        </label>
         <input
           id="subscribe-email-detail"
           name="email"
           type="email"
           required
           autocomplete="email"
-          placeholder="Alamat email Anda"
-          class="mt-5 w-full rounded-full border border-auriga-line bg-white px-5 py-3.5 text-sm outline-none focus:border-auriga-red focus:ring-2 focus:ring-auriga-red/10"
+          placeholder="nama@email.com"
+          class="w-full rounded-full border border-auriga-line bg-white px-5 py-3.5 text-sm outline-none transition focus:border-[#376A64] focus:ring-2 focus:ring-[#376A64]/10"
         >
+
+        <div class="mt-4 rounded-2xl bg-[#f3f6f5] p-4">
+          <p class="mb-3 text-[10px] font-bold uppercase tracking-[0.12em] text-auriga-muted">
+            Verifikasi keamanan
+          </p>
+          <div
+            class="cf-turnstile"
+            data-sitekey="0x4AAAAAAEB2t5fz6Yb-YTz4"
+            data-action="subscribe"
+            data-theme="light"
+            data-size="flexible"
+          ></div>
+        </div>
 
         <button
           type="submit"
-          class="mt-3 w-full rounded-full bg-auriga-red px-6 py-3.5 text-[11px] font-bold uppercase tracking-[0.12em] text-white transition hover:bg-[#a63d31]"
+          class="mt-4 w-full rounded-full bg-[#376A64] px-6 py-3.5 text-[11px] font-bold uppercase tracking-[0.12em] text-white transition hover:bg-[#2d5954] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#376A64]"
         >
           Aktifkan langganan
         </button>
-        <p data-subscribe-status class="mt-3 text-center text-xs text-auriga-muted" role="status" aria-live="polite"></p>
+        <p data-subscribe-status class="mt-3 min-h-5 text-center text-xs text-auriga-muted" role="status" aria-live="polite"></p>
       </form>
     </div>
   </div>
@@ -376,7 +545,7 @@
       <div class="flex items-start gap-4">
         <div
           data-comment-avatar
-          class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-auriga-cream text-sm font-black uppercase text-auriga-red"
+          class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#e5efed] text-sm font-black uppercase text-[#376A64]"
           aria-hidden="true"
         ></div>
         <div class="min-w-0 flex-1">
@@ -388,40 +557,76 @@
           <button
             data-reply-toggle
             type="button"
-            class="mt-3 text-[10px] font-bold uppercase tracking-[0.12em] text-auriga-red transition hover:text-[#8f3027]"
+            class="mt-3 text-[10px] font-bold uppercase tracking-[0.12em] text-[#376A64] transition hover:text-[#2d5954]"
           >
             Balas
           </button>
 
-          <form data-reply-form class="mt-4 hidden rounded-lg border border-auriga-line bg-[#faf8f5] p-4">
-            <input
-              name="replyName"
-              type="text"
-              maxlength="60"
-              required
-              autocomplete="name"
-              aria-label="Nama untuk balasan"
-              placeholder="Nama Anda"
-              class="w-full border-0 border-b border-auriga-line bg-transparent px-0 py-2 text-xs outline-none placeholder:text-auriga-muted/55 focus:border-auriga-red focus:ring-0"
-            >
-            <textarea
-              name="replyMessage"
-              rows="3"
-              maxlength="1000"
-              required
-              aria-label="Isi balasan"
-              placeholder="Tulis balasan..."
-              class="mt-3 w-full resize-y rounded-md border border-auriga-line bg-white p-3 text-xs leading-5 outline-none placeholder:text-auriga-muted/55 focus:border-auriga-red focus:ring-2 focus:ring-auriga-red/10"
-            ></textarea>
-            <div class="mt-3 flex items-center justify-between gap-3">
-              <p data-reply-status class="text-[10px] text-auriga-muted" role="status"></p>
-              <button
-                type="submit"
-                class="rounded-full bg-auriga-red px-4 py-2 text-[10px] font-bold uppercase tracking-[0.1em] text-white"
+          <form data-reply-form class="mt-4 hidden">
+            <div class="flex items-center gap-3 px-1">
+              <div
+                data-reply-form-avatar
+                class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#376A64] text-sm font-semibold uppercase text-white"
+                aria-hidden="true"
               >
-                Kirim balasan
-              </button>
+                A
+              </div>
+              <input
+                name="replyName"
+                type="text"
+                maxlength="60"
+                required
+                autocomplete="name"
+                aria-label="Nama untuk balasan"
+                placeholder="Nama Anda"
+                class="min-w-0 flex-1 border-0 bg-transparent px-1 py-2 text-sm font-medium outline-none placeholder:font-normal placeholder:text-auriga-muted/55 focus:ring-0"
+              >
             </div>
+
+            <div class="mt-3 overflow-hidden bg-[#f5f5f5]">
+              <textarea
+                name="replyMessage"
+                rows="4"
+                maxlength="1000"
+                required
+                aria-label="Isi balasan"
+                placeholder="Tulis balasan..."
+                class="block min-h-28 w-full resize-none border-0 bg-transparent px-4 py-3 text-sm leading-6 outline-none placeholder:text-auriga-muted/45 focus:ring-0"
+              ></textarea>
+
+              <div class="flex items-center justify-between gap-3 border-t border-black/5 px-4 py-3">
+                <div class="flex items-center gap-4 text-auriga-muted" aria-label="Format balasan">
+                  <button data-reply-format="bold" type="button" class="font-serif text-lg font-bold transition hover:text-auriga-ink" aria-label="Tebal">
+                    B
+                  </button>
+                  <button data-reply-format="italic" type="button" class="font-serif text-lg italic transition hover:text-auriga-ink" aria-label="Miring">
+                    i
+                  </button>
+                  <button data-reply-format="link" type="button" class="text-base transition hover:text-auriga-ink" aria-label="Tautan">
+                    ↗
+                  </button>
+                </div>
+
+                <div class="flex items-center gap-2">
+                  <button
+                    data-reply-cancel
+                    type="button"
+                    class="px-2 py-2 text-[10px] font-medium text-auriga-ink transition hover:text-[#376A64]"
+                  >
+                    Batal
+                  </button>
+                  <button
+                    data-reply-submit
+                    type="submit"
+                    disabled
+                    class="rounded-full bg-[#376A64] px-4 py-2 text-[9px] font-bold uppercase tracking-[0.1em] text-white transition enabled:hover:bg-[#2d5954] disabled:cursor-not-allowed disabled:opacity-35"
+                  >
+                    Kirim
+                  </button>
+                </div>
+              </div>
+            </div>
+            <p data-reply-status class="mt-2 min-h-4 text-[10px] text-auriga-muted" role="status"></p>
           </form>
         </div>
       </div>
@@ -437,6 +642,15 @@
     const commentCount = document.getElementById('comment-count');
     const commentStatus = document.getElementById('comment-status');
     const commentTemplate = document.getElementById('comment-template');
+    const commentName = document.getElementById('comment-name');
+    const commentMessage = document.getElementById('comment-message');
+    const commentFormAvatar = document.querySelector('[data-comment-form-avatar]');
+    const commentEditor = document.querySelector('[data-comment-editor]');
+    const commentActions = document.querySelector('[data-comment-actions]');
+    const commentCancel = document.querySelector('[data-comment-cancel]');
+    const commentSubmit = document.querySelector('[data-comment-submit]');
+    const commentFormatButtons = document.querySelectorAll('[data-format]');
+    const expandedCommentThreads = new Set();
     const defaultComments = [
       {
         id: 'comment-rina',
@@ -491,14 +705,15 @@
         : `comment-${Date.now()}-${Math.random().toString(16).slice(2)}`;
     }
 
-    function normalizeComment(comment) {
+    function normalizeComment(comment, depth = 0, parentName = '') {
       return {
         id: comment.id || createCommentId(),
         name: comment.name || 'Anonim',
         message: comment.message || '',
+        replyTo: comment.replyTo || parentName,
         createdAt: comment.createdAt || new Date().toISOString(),
-        replies: Array.isArray(comment.replies)
-          ? comment.replies.map(normalizeComment)
+        replies: depth < 3 && Array.isArray(comment.replies)
+          ? comment.replies.map((reply) => normalizeComment(reply, depth + 1, comment.name || 'Anonim'))
           : []
       };
     }
@@ -507,9 +722,11 @@
       try {
         const savedComments = localStorage.getItem(commentStorageKey);
         const comments = savedComments === null ? defaultComments : JSON.parse(savedComments);
-        return Array.isArray(comments) ? comments.map(normalizeComment) : [];
+        return Array.isArray(comments)
+          ? comments.map((comment) => normalizeComment(comment, 0, ''))
+          : [];
       } catch (error) {
-        return defaultComments.map(normalizeComment);
+        return defaultComments.map((comment) => normalizeComment(comment, 0, ''));
       }
     }
 
@@ -533,7 +750,39 @@
       return null;
     }
 
-    function createCommentElement(comment, depth = 0) {
+    function renderCommentMessage(container, message) {
+      const pattern = /(\*\*([^*]+)\*\*|_([^_]+)_|\[([^\]]+)\]\((https?:\/\/[^)\s]+)\))/g;
+      let cursor = 0;
+      let match;
+
+      while ((match = pattern.exec(message)) !== null) {
+        container.append(document.createTextNode(message.slice(cursor, match.index)));
+
+        if (match[2]) {
+          const strong = document.createElement('strong');
+          strong.textContent = match[2];
+          container.append(strong);
+        } else if (match[3]) {
+          const emphasis = document.createElement('em');
+          emphasis.textContent = match[3];
+          container.append(emphasis);
+        } else {
+          const link = document.createElement('a');
+          link.href = match[5];
+          link.textContent = match[4];
+          link.target = '_blank';
+          link.rel = 'noopener noreferrer nofollow';
+          link.className = 'text-[#376A64] underline';
+          container.append(link);
+        }
+
+        cursor = pattern.lastIndex;
+      }
+
+      container.append(document.createTextNode(message.slice(cursor)));
+    }
+
+    function createCommentElement(comment, depth = 0, threadRootId = comment.id) {
       const item = commentTemplate.content.firstElementChild.cloneNode(true);
 
       if (depth > 0) {
@@ -542,7 +791,14 @@
 
       item.querySelector('[data-comment-avatar]').textContent = comment.name.charAt(0);
       item.querySelector('[data-comment-name]').textContent = comment.name;
-      item.querySelector('[data-comment-message]').textContent = comment.message;
+      const messageContainer = item.querySelector('[data-comment-message]');
+      if (comment.replyTo) {
+        const mention = document.createElement('span');
+        mention.className = 'mr-1 font-semibold text-[#376A64]';
+        mention.textContent = `@${comment.replyTo}`;
+        messageContainer.append(mention);
+      }
+      renderCommentMessage(messageContainer, comment.message);
       item.querySelector('[data-comment-date]').textContent = new Date(comment.createdAt)
         .toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
 
@@ -550,13 +806,50 @@
       const replyForm = item.querySelector('[data-reply-form]');
       const replyStatus = item.querySelector('[data-reply-status]');
       const replyList = item.querySelector('[data-reply-list]');
+      const replyName = replyForm.querySelector('[name="replyName"]');
+      const replyMessage = replyForm.querySelector('[name="replyMessage"]');
+      const replyFormAvatar = replyForm.querySelector('[data-reply-form-avatar]');
+      const replyCancel = replyForm.querySelector('[data-reply-cancel]');
+      const replySubmit = replyForm.querySelector('[data-reply-submit]');
+      const replyFormatButtons = replyForm.querySelectorAll('[data-reply-format]');
+      replyMessage.placeholder = `Balas @${comment.name}...`;
 
-      replyToggle.addEventListener('click', () => {
-        replyForm.classList.toggle('hidden');
-        if (!replyForm.classList.contains('hidden')) {
-          replyForm.querySelector('input').focus();
-        }
+      function updateReplyFormState() {
+        const name = replyName.value.trim();
+        const message = replyMessage.value.trim();
+        replyFormAvatar.textContent = name.charAt(0) || 'A';
+        replySubmit.disabled = !name || !message;
+      }
+
+      replyName.addEventListener('input', updateReplyFormState);
+      replyMessage.addEventListener('input', updateReplyFormState);
+      replyCancel.addEventListener('click', () => {
+        replyForm.reset();
+        replyStatus.textContent = '';
+        replyForm.classList.add('hidden');
+        updateReplyFormState();
+        replyToggle.focus();
       });
+      replyFormatButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+          insertTextFormat(replyMessage, button.dataset.replyFormat);
+          updateReplyFormState();
+        });
+      });
+      updateReplyFormState();
+
+      const reachedReplyLimit = depth >= 3;
+      const canReply = !reachedReplyLimit;
+      replyToggle.classList.toggle('hidden', !canReply);
+
+      if (canReply) {
+        replyToggle.addEventListener('click', () => {
+          replyForm.classList.toggle('hidden');
+          if (!replyForm.classList.contains('hidden')) {
+            replyName.focus();
+          }
+        });
+      }
 
       replyForm.addEventListener('submit', (event) => {
         event.preventDefault();
@@ -573,20 +866,64 @@
         const parentComment = findComment(comments, comment.id);
         if (!parentComment) return;
 
+        if (depth >= 3) {
+          replyStatus.textContent = 'Batas maksimal balasan telah tercapai.';
+          return;
+        }
+
         parentComment.replies.push({
           id: createCommentId(),
           name,
           message,
+          replyTo: parentComment.name,
           createdAt: new Date().toISOString(),
           replies: []
         });
         saveComments(comments);
+        expandedCommentThreads.add(threadRootId);
+        expandedCommentThreads.add(comment.id);
         renderComments();
       });
 
       (comment.replies || []).forEach((reply) => {
-        replyList.appendChild(createCommentElement(reply, depth + 1));
+        replyList.appendChild(createCommentElement(reply, depth + 1, threadRootId));
       });
+
+      if ((comment.replies || []).length > 0) {
+        const replyCount = countComments(comment.replies);
+        const threadToggle = document.createElement('button');
+        const caret = document.createElement('span');
+        const label = document.createElement('span');
+
+        threadToggle.type = 'button';
+        threadToggle.className =
+          'mt-5 inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.1em] text-[#376A64] transition hover:text-[#2d5954]';
+        caret.textContent = '⌄';
+        caret.className = 'text-base leading-none transition-transform';
+        threadToggle.append(caret, label);
+        replyList.before(threadToggle);
+
+        const updateThreadVisibility = () => {
+          const expanded = expandedCommentThreads.has(comment.id);
+          replyList.classList.toggle('hidden', !expanded);
+          threadToggle.setAttribute('aria-expanded', String(expanded));
+          label.textContent = expanded
+            ? `Tutup ${replyCount} balasan`
+            : `Lihat ${replyCount} balasan`;
+          caret.classList.toggle('rotate-180', expanded);
+        };
+
+        threadToggle.addEventListener('click', () => {
+          if (expandedCommentThreads.has(comment.id)) {
+            expandedCommentThreads.delete(comment.id);
+          } else {
+            expandedCommentThreads.add(comment.id);
+          }
+          updateThreadVisibility();
+        });
+
+        updateThreadVisibility();
+      }
 
       return item;
     }
@@ -599,9 +936,86 @@
       commentEmpty.classList.toggle('hidden', comments.length > 0);
 
       [...comments].reverse().forEach((comment) => {
-        commentList.appendChild(createCommentElement(comment));
+        commentList.appendChild(createCommentElement(comment, 0, comment.id));
       });
     }
+
+    function toggleCommentEditor(expanded) {
+      commentEditor.dataset.expanded = String(expanded);
+      commentMessage.rows = expanded ? 6 : 1;
+      commentActions.classList.toggle('hidden', !expanded);
+      commentActions.classList.toggle('flex', expanded);
+    }
+
+    function updateCommentFormState() {
+      const name = commentName.value.trim();
+      const message = commentMessage.value.trim();
+      commentFormAvatar.textContent = name.charAt(0) || 'A';
+      commentSubmit.disabled = !name || !message;
+    }
+
+    function insertTextFormat(textarea, type) {
+      const start = textarea.selectionStart;
+      const end = textarea.selectionEnd;
+      const selectedText = textarea.value.slice(start, end);
+      let before = '';
+      let after = '';
+      let content = selectedText;
+
+      if (type === 'bold') {
+        before = '**';
+        after = '**';
+      } else if (type === 'italic') {
+        before = '_';
+        after = '_';
+      } else if (type === 'link') {
+        before = '[';
+        after = '](https://)';
+        content = selectedText || 'teks tautan';
+      }
+
+      textarea.setRangeText(`${before}${content}${after}`, start, end, 'end');
+      textarea.focus();
+    }
+
+    commentMessage.addEventListener('focus', () => toggleCommentEditor(true));
+    commentName.addEventListener('input', updateCommentFormState);
+    commentMessage.addEventListener('input', updateCommentFormState);
+
+    commentCancel.addEventListener('click', () => {
+      commentMessage.value = '';
+      commentStatus.textContent = '';
+      toggleCommentEditor(false);
+      updateCommentFormState();
+      commentName.focus();
+    });
+
+    commentFormatButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        insertTextFormat(commentMessage, button.dataset.format);
+        updateCommentFormState();
+      });
+    });
+
+    document.addEventListener('click', (event) => {
+      if (
+        commentEditor.dataset.expanded === 'true'
+        && !commentForm.contains(event.target)
+      ) {
+        toggleCommentEditor(false);
+      }
+
+      const clickedElement = event.target instanceof Element ? event.target : null;
+      if (
+        clickedElement
+        && !clickedElement.closest('[data-reply-form]')
+        && !clickedElement.closest('[data-reply-toggle]')
+      ) {
+        document.querySelectorAll('[data-reply-form]:not(.hidden)').forEach((form) => {
+          form.classList.add('hidden');
+        });
+      }
+    });
 
     commentForm.addEventListener('submit', (event) => {
       event.preventDefault();
@@ -627,9 +1041,13 @@
 
       commentForm.reset();
       commentStatus.textContent = 'Komentar berhasil ditambahkan.';
+      toggleCommentEditor(false);
+      updateCommentFormState();
       renderComments();
     });
 
+    toggleCommentEditor(false);
+    updateCommentFormState();
     renderComments();
 
     const subscribeModal = document.querySelector('[data-subscribe-modal]');
@@ -637,13 +1055,32 @@
     const subscribeClose = document.querySelectorAll('[data-subscribe-close]');
     const subscribeForm = document.querySelector('[data-subscribe-form]');
     const subscribeStatus = document.querySelector('[data-subscribe-status]');
+    const subscribeSubmitButton = subscribeForm.querySelector('button[type="submit"]');
+    const subscribeTurnstileWidget = subscribeForm.querySelector('.cf-turnstile');
+    let subscribeLastFocus = null;
+
+    function resetSubscribeTurnstile() {
+      if (window.turnstile) {
+        try {
+          window.turnstile.reset(subscribeTurnstileWidget);
+        } catch (error) {
+          // Widget may still be loading when the modal is opened for the first time.
+        }
+      }
+    }
 
     function toggleSubscribeModal(open) {
-      subscribeModal.classList.toggle('hidden', !open);
-      subscribeModal.classList.toggle('flex', open);
+      subscribeModal.dataset.open = String(open);
+      subscribeModal.setAttribute('aria-hidden', String(!open));
       document.body.classList.toggle('overflow-hidden', open);
+
       if (open) {
-        setTimeout(() => subscribeForm.querySelector('input[type="radio"]').focus(), 0);
+        subscribeLastFocus = document.activeElement;
+        subscribeStatus.textContent = '';
+        resetSubscribeTurnstile();
+        setTimeout(() => subscribeForm.querySelector('input[name="name"]').focus(), 0);
+      } else if (subscribeLastFocus) {
+        subscribeLastFocus.focus();
       }
     }
 
@@ -653,25 +1090,62 @@
     });
 
     document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape' && !subscribeModal.classList.contains('hidden')) {
+      if (event.key === 'Escape' && subscribeModal.dataset.open === 'true') {
         toggleSubscribeModal(false);
       }
     });
 
-    subscribeForm.addEventListener('submit', (event) => {
+    subscribeForm.addEventListener('submit', async (event) => {
       event.preventDefault();
       const formData = new FormData(subscribeForm);
-      const subscription = {
-        email: String(formData.get('email')).trim(),
-        scope: String(formData.get('scope')),
-        story: 'Raja Ampat di Persimpangan'
-      };
-      localStorage.setItem('auriga-story-subscription', JSON.stringify(subscription));
-      subscribeStatus.textContent =
-        subscription.scope === 'story'
-          ? 'Berhasil. Anda akan menerima pembaruan untuk story ini.'
-          : 'Berhasil. Anda akan menerima pembaruan seluruh story.';
-      subscribeForm.reset();
+      const name = String(formData.get('name')).trim();
+      const email = String(formData.get('email')).trim();
+      const turnstileToken = String(formData.get('cf-turnstile-response') || '');
+
+      if (!turnstileToken) {
+        subscribeStatus.textContent = 'Selesaikan verifikasi keamanan terlebih dahulu.';
+        return;
+      }
+
+      subscribeSubmitButton.disabled = true;
+      subscribeStatus.textContent = 'Memverifikasi keamanan...';
+
+      try {
+        const verificationData = new FormData();
+        verificationData.append('cf-turnstile-response', turnstileToken);
+        const verificationResponse = await fetch('verify-turnstile.php', {
+          method: 'POST',
+          headers: { Accept: 'application/json' },
+          body: verificationData
+        });
+        const verification = await verificationResponse.json();
+
+        if (!verificationResponse.ok || !verification.success) {
+          throw new Error(verification.message || 'Verifikasi keamanan gagal. Silakan coba lagi.');
+        }
+
+        localStorage.setItem(
+          'simontini-story-subscription',
+          JSON.stringify({
+            name,
+            email,
+            scope: 'story',
+            story: 'Raja Ampat di Persimpangan',
+            subscribedAt: new Date().toISOString()
+          })
+        );
+        subscribeStatus.textContent = 'Berhasil. Anda telah mengikuti pembaruan story ini.';
+        subscribeForm.reset();
+        resetSubscribeTurnstile();
+      } catch (error) {
+        subscribeStatus.textContent =
+          error instanceof Error
+            ? error.message
+            : 'Langganan belum dapat diproses. Silakan coba kembali.';
+        resetSubscribeTurnstile();
+      } finally {
+        subscribeSubmitButton.disabled = false;
+      }
     });
   </script>
 </body>
