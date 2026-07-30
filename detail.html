@@ -59,6 +59,20 @@
       -webkit-line-clamp: 2;
     }
 
+    @media (min-width: 1024px) {
+      .update-timeline-item:not(:last-child)::after {
+        position: absolute;
+        top: 1.25rem;
+        left: -0.5rem;
+        z-index: 0;
+        width: 1px;
+        height: calc(100% + 2.5rem);
+        background: #d9e1df;
+        content: '';
+        pointer-events: none;
+      }
+    }
+
     .comment-reply {
       position: relative;
       margin-left: 1.25rem;
@@ -285,10 +299,10 @@
             aria-label="Pembaruan story"
           >
             <div class="space-y-10">
-              <div id="pembaruan-raja-ampat" class="relative">
+              <div id="pembaruan-raja-ampat" class="update-timeline-item relative">
                 <time
                   datetime="2025-07-30"
-                  class="mb-5 flex items-center gap-3 lg:absolute lg:-left-36 lg:top-3 lg:mb-0 lg:w-32 lg:justify-end"
+                  class="mb-5 flex items-center gap-3 lg:absolute lg:-left-36 lg:top-3 lg:z-10 lg:mb-0 lg:w-32 lg:justify-end"
                 >
                   <span class="flex flex-col items-center text-center">
                     <span class="text-xs font-black uppercase leading-none tracking-[0.1em] text-auriga-red">
@@ -332,10 +346,10 @@
                 </article>
               </div>
 
-              <div id="verifikasi-lapangan-raja-ampat" class="relative">
+              <div id="verifikasi-lapangan-raja-ampat" class="update-timeline-item relative">
                 <time
                   datetime="2025-07-15"
-                  class="mb-5 flex items-center gap-3 lg:absolute lg:-left-36 lg:top-3 lg:mb-0 lg:w-32 lg:justify-end"
+                  class="mb-5 flex items-center gap-3 lg:absolute lg:-left-36 lg:top-3 lg:z-10 lg:mb-0 lg:w-32 lg:justify-end"
                 >
                   <span class="flex flex-col items-center text-center">
                     <span class="text-xs font-black uppercase leading-none tracking-[0.1em] text-auriga-red">
