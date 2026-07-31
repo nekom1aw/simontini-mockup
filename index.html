@@ -77,8 +77,8 @@
     }
 
     .story-description {
-      min-height: 5.25em;
-      -webkit-line-clamp: 3;
+      min-height: 8.75em;
+      -webkit-line-clamp: 5;
     }
 
     .subscribe-modal {
@@ -294,32 +294,25 @@
     <section id="publikasi" class="scroll-mt-24">
       <div class="mx-auto max-w-[1440px] px-5 py-14 sm:px-8 sm:py-20 lg:px-12 lg:py-24">
         <div class="space-y-24 sm:space-y-28">
-          <section id="agustus-2025" class="scroll-mt-40" aria-labelledby="judul-agustus-2025">
-            <h2 id="judul-agustus-2025" class="mb-8 text-2xl font-bold uppercase tracking-wide text-[#376A64] sm:text-3xl">
-              Agustus 2025
+          <section id="juli-2025" class="scroll-mt-40" aria-labelledby="judul-juli-2025">
+            <h2 id="judul-juli-2025" class="mb-8 text-2xl font-bold uppercase tracking-wide text-[#376A64] sm:text-3xl">
+              Juli 2025
             </h2>
-            <div data-month="agustus" class="grid grid-cols-1 gap-x-6 gap-y-12 md:grid-cols-2 xl:grid-cols-4 xl:gap-x-7"></div>
+            <div data-month="juli" class="grid grid-cols-1 gap-x-6 gap-y-12 md:grid-cols-2 xl:grid-cols-4 xl:gap-x-7"></div>
           </section>
 
-          <section id="september-2025" class="scroll-mt-40" aria-labelledby="judul-september-2025">
-            <h2 id="judul-september-2025" class="mb-8 text-2xl font-bold uppercase tracking-wide text-[#376A64] sm:text-3xl">
-              September 2025
+          <section id="mei-2025" class="scroll-mt-40" aria-labelledby="judul-mei-2025">
+            <h2 id="judul-mei-2025" class="mb-8 text-2xl font-bold uppercase tracking-wide text-[#376A64] sm:text-3xl">
+              Mei 2025
             </h2>
-            <div data-month="september" class="grid grid-cols-1 gap-x-6 gap-y-12 md:grid-cols-2 xl:grid-cols-4 xl:gap-x-7"></div>
+            <div data-month="mei" class="grid grid-cols-1 gap-x-6 gap-y-12 md:grid-cols-2 xl:grid-cols-4 xl:gap-x-7"></div>
           </section>
 
-          <section id="oktober-2025" class="scroll-mt-40" aria-labelledby="judul-oktober-2025">
-            <h2 id="judul-oktober-2025" class="mb-8 text-2xl font-bold uppercase tracking-wide text-[#376A64] sm:text-3xl">
-              Oktober 2025
+          <section id="april-2025" class="scroll-mt-40" aria-labelledby="judul-april-2025">
+            <h2 id="judul-april-2025" class="mb-8 text-2xl font-bold uppercase tracking-wide text-[#376A64] sm:text-3xl">
+              April 2025
             </h2>
-            <div data-month="oktober" class="grid grid-cols-1 gap-x-6 gap-y-12 md:grid-cols-2 xl:grid-cols-4 xl:gap-x-7"></div>
-          </section>
-
-          <section id="november-2025" class="scroll-mt-40" aria-labelledby="judul-november-2025">
-            <h2 id="judul-november-2025" class="mb-8 text-2xl font-bold uppercase tracking-wide text-[#376A64] sm:text-3xl">
-              November 2025
-            </h2>
-            <div data-month="november" class="grid grid-cols-1 gap-x-6 gap-y-12 md:grid-cols-2 xl:grid-cols-4 xl:gap-x-7"></div>
+            <div data-month="april" class="grid grid-cols-1 gap-x-6 gap-y-12 md:grid-cols-2 xl:grid-cols-4 xl:gap-x-7"></div>
           </section>
         </div>
       </div>
@@ -349,126 +342,58 @@
 
   <script>
     const storyData = {
-      agustus: [
-        {
-          title: 'Deforestasi dan Pembangunan PSN',
-          image: 'img/ipip.jpg',
-          alt: 'Kawasan industri di tengah bentang alam',
-          description: 'Melihat dampak pembangunan proyek strategis terhadap tutupan hutan alam Indonesia.'
-        },
+      juli: [
         {
           title: 'Raja Ampat di Persimpangan',
           image: 'img/raja-ampat.jpg',
           alt: 'Bentang alam kepulauan Raja Ampat',
-          description: 'Cerita mengenai nilai ekologis Raja Ampat dan tekanan industri yang terus berkembang.'
+          description: 'Cerita mengenai nilai ekologis Raja Ampat, kehidupan masyarakat pesisir, dan tekanan industri yang terus berkembang. Pemantauan dilakukan untuk memahami perubahan bentang alam serta dampaknya terhadap kawasan penting ini.'
+        }
+      ],
+      mei: [
+        {
+          title: 'Deforestasi dan Pembangunan PSN',
+          image: 'img/ipip.jpg',
+          alt: 'Kawasan industri di tengah bentang alam',
+          description: 'Melihat dampak pembangunan proyek strategis terhadap tutupan hutan alam Indonesia. Data spasial dan temuan lapangan digunakan untuk menilai perubahan kawasan serta risiko ekologis yang muncul di sekitarnya.'
         },
         {
           title: 'Jejak Tambang di Kawasan Hutan',
           image: 'img/tambang.jpg',
           alt: 'Aktivitas pertambangan di kawasan berhutan',
-          description: 'Membaca perubahan bentang alam melalui data spasial dan pemantauan lapangan.'
+          description: 'Membaca perubahan bentang alam melalui data spasial dan pemantauan lapangan. Jejak pembukaan lahan dibandingkan dari waktu ke waktu untuk melihat pengaruh kegiatan tambang terhadap hutan dan wilayah di sekitarnya.'
         },
         {
           title: 'Masa Depan Habitat Orang Utan',
           image: 'img/habitat-orangutan.jpg',
           alt: 'Orang utan di habitat hutan alam',
-          description: 'Kehilangan hutan mempersempit ruang hidup satwa endemik dan kawasan biodiversitas.'
-        }
-      ],
-      september: [
+          description: 'Kehilangan hutan mempersempit ruang hidup orang utan dan berbagai satwa endemik lainnya. Perlindungan koridor habitat menjadi penting agar populasi satwa tetap terhubung dan mampu bertahan dalam jangka panjang.'
+        },
         {
           title: 'Hutan Alam dalam Konsesi',
           image: 'img/konsesi-toba-pulp.jpg',
           alt: 'Tutupan hutan alam di dalam area konsesi',
-          description: 'Menelusuri tutupan hutan yang masih tersisa di dalam berbagai wilayah perizinan.'
-        },
+          description: 'Menelusuri tutupan hutan yang masih tersisa di dalam berbagai wilayah perizinan. Informasi konsesi dibandingkan dengan kondisi tutupan lahan untuk mengenali area bernilai ekologis yang membutuhkan perlindungan.'
+        }
+      ],
+      april: [
         {
           title: 'Tekanan Baru di Tanah Papua',
           image: 'img/sorong.jpg',
           alt: 'Bentang alam di Tanah Papua',
-          description: 'Episentrum kehilangan hutan bergerak menuju wilayah dengan hutan alam yang luas.'
+          description: 'Episentrum kehilangan hutan bergerak menuju Tanah Papua yang masih memiliki bentang alam luas. Perubahan baru perlu dipantau sejak awal agar kerusakan tidak meluas dan hak masyarakat adat tetap terlindungi.'
         },
         {
           title: 'Ekspansi Sawit dan Deforestasi',
           image: 'img/kebun-sawit-borneo.jpg',
           alt: 'Area perkebunan sawit di sekitar hutan',
-          description: 'Mengamati perubahan tutupan hutan yang terjadi di dalam dan sekitar konsesi sawit.'
+          description: 'Mengamati perubahan tutupan hutan yang terjadi di dalam dan sekitar konsesi sawit. Analisis berkala membantu menunjukkan lokasi pembukaan terbaru, pola ekspansi perkebunan, dan dampaknya terhadap ekosistem.'
         },
         {
           title: 'Kebun Kayu di Hutan Alam',
           image: 'img/hte-kaltara.jpg',
           alt: 'Tutupan hutan di Kalimantan Utara',
-          description: 'Pemberian izin kebun kayu pada hutan alam menciptakan risiko deforestasi terencana.'
-        },
-        {
-          title: 'Kawasan Konservasi Tertekan',
-          image: 'img/rawa-singkil.jpg',
-          alt: 'Bentang alam Rawa Singkil',
-          description: 'Status konservasi belum selalu mampu menghentikan kehilangan hutan di lapangan.'
-        },
-        {
-          title: 'Membaca Hutan dari Satelit',
-          image: 'img/rudp-3.jpg',
-          alt: 'Materi visual pemantauan hutan',
-          description: 'Citra Sentinel dan pembelajaran mesin membantu mendeteksi perubahan secara berkala.'
-        }
-      ],
-      oktober: [
-        {
-          title: 'Arah Baru Kebijakan Kehutanan',
-          image: 'img/rdpu-kehutanan-6.jpg',
-          alt: 'Diskusi publik mengenai kebijakan kehutanan',
-          description: 'Mengulas kebutuhan regulasi yang mampu melindungi seluruh hutan alam tersisa.'
-        },
-        {
-          title: 'Pangan, Energi, dan Air',
-          image: 'img/plta.jpg',
-          alt: 'Pembangunan infrastruktur pada bentang alam',
-          description: 'Program pembangunan berskala besar perlu menempatkan perlindungan hutan sebagai dasar.'
-        },
-        {
-          title: 'Pelepasan Kawasan Hutan',
-          image: 'img/kawasan-hutan-produksi.jpg',
-          alt: 'Kawasan hutan produksi',
-          description: 'Perubahan status kawasan dapat menjadi pintu awal konversi tutupan hutan alam.'
-        },
-        {
-          title: 'Ketika Deforestasi Menjadi Legal',
-          image: 'img/batang-toru.jpg',
-          alt: 'Bentang alam Batang Toru',
-          description: 'Legalitas izin tidak serta-merta menghilangkan dampak ekologis dari kehilangan hutan.'
-        },
-        {
-          title: 'Masa Depan Hutan Produksi',
-          image: 'img/hutan-berau-lestari.jpg',
-          alt: 'Tutupan hutan di area produksi',
-          description: 'Mencari pendekatan pengelolaan yang menjaga fungsi ekonomi sekaligus ekologi.'
-        }
-      ],
-      november: [
-        {
-          title: 'Status Deforestasi Indonesia 2025',
-          image: 'img/ipip.jpg',
-          alt: 'Perubahan bentang alam akibat pembangunan',
-          description: 'Rangkuman temuan, angka, lokasi, dan faktor pendorong deforestasi sepanjang 2025.'
-        },
-        {
-          title: 'Episentrum Deforestasi Bergeser',
-          image: 'img/nabire.jpg',
-          alt: 'Bentang alam Nabire',
-          description: 'Data terbaru menunjukkan pergeseran tekanan menuju kawasan timur Indonesia.'
-        },
-        {
-          title: 'Melindungi Seluruh Hutan Alam',
-          image: 'img/habitat-orangutan.jpg',
-          alt: 'Orang utan di dalam hutan alam',
-          description: 'Perlindungan perlu menjangkau hutan alam di dalam maupun di luar kawasan hutan.'
-        },
-        {
-          title: 'Enam Agenda untuk Pemerintah',
-          image: 'img/rudp-5.jpg',
-          alt: 'Materi rekomendasi kebijakan kehutanan',
-          description: 'Langkah regulasi, tata ruang, kelembagaan, dan insentif untuk menekan deforestasi.'
+          description: 'Pemberian izin kebun kayu pada kawasan berhutan menciptakan risiko deforestasi terencana. Pemantauan perizinan dan tutupan lahan diperlukan untuk memastikan hutan alam bernilai tinggi tidak berubah menjadi tanaman industri.'
         }
       ]
     };
