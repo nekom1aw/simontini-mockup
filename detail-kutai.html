@@ -281,15 +281,43 @@
         <figcaption class="hero-caption">Bentang hutan di kawasan Taman Nasional Kutai, Kalimantan Timur.</figcaption>
       </figure>
 <p dir="ltr"><span>Namun, hal itu tidak terjadi di Taman Nasional Kutai, Kalimantan Timur, sebagaimana dibuktikan pantauan lapangan pada Mei 2026. Gambar-gambar berikut membuktikannya. </span></p>
-<div class="relative mx-auto z-20 overflow-hidden" style="width: 100%; margin: 18px 0; padding: 0; box-sizing: border-box;" x-data="{ currentSlide: 0, totalSlides: 3 }">
-<div class="flex transition-transform duration-500" :style="'transform: translateX(-' + (currentSlide * 100) + '%)'">
+<div class="relative mx-auto z-20 overflow-hidden" style="width: 100%; margin: 18px 0; padding: 0; box-sizing: border-box;" data-story-carousel>
+<div class="flex transition-transform duration-500" data-carousel-track>
 <div class="swiper-slide w-full flex-shrink-0"><a class="glightbox1 gbox block w-full aspect-video overflow-hidden" href="https://auriga.or.id/resource/reference/deforestasi-dalam-taman-nasional-kutai-di-kalimantan-timur-gambar-1.jpg" data-glightbox="description: Tampak pondok dan kawasan hutan yang telah dibersihkan dalam kawasan konservasi TN Kutai. Pembukaan ini di sekitar koordinat 0°21'6.66&quot;N - 117°27'52.90&quot;E. Pemantauan: 5 Mei 2026"><img class="w-full h-full aspect-video object-cover object-center cursor-zoom-in hover:brightness-50 transition duration-300 ease-in-out" src="https://auriga.or.id/resource/reference/deforestasi-dalam-taman-nasional-kutai-di-kalimantan-timur-gambar-1.jpg" alt="Deforestasi dalam Taman Nasional Kutai di Kalimantan Timur gambar 1"></a><p style="width: 100%; margin: 2px 0 0 0; padding: 0; font-size: 12px; line-height: 14px; color: #666; font-weight: 400; box-sizing: border-box;">Tampak pondok dan kawasan hutan yang telah dibersihkan dalam kawasan konservasi TN Kutai.<br>Pembukaan ini di sekitar koordinat 0°21'6.66&quot;N - 117°27'52.90&quot;E<br>Pemantauan: 5 Mei 2026</p></div>
 <div class="swiper-slide w-full flex-shrink-0"><a class="glightbox1 gbox block w-full aspect-video overflow-hidden" href="https://auriga.or.id/resource/reference/deforestasi-dalam-taman-nasional-kutai-di-kalimantan-timur-gambar-2.jpg" data-glightbox="description: Tampak jalan dan pondok pekerja tebang dalam kawasan konservasi. Aktivitas ini diduga kuat merupakan kegiatan ilegal dalam TN Kutai. Pemantauan: 5 Mei 2026"><img class="w-full h-full aspect-video object-cover object-center cursor-zoom-in hover:brightness-50 transition duration-300 ease-in-out" src="https://auriga.or.id/resource/reference/deforestasi-dalam-taman-nasional-kutai-di-kalimantan-timur-gambar-2.jpg" alt="Deforestasi dalam Taman Nasional Kutai di Kalimantan Timur gambar 2"></a><p style="width: 100%; margin: 2px 0 0 0; padding: 0; font-size: 12px; line-height: 14px; color: #666; font-weight: 400; box-sizing: border-box;">Tampak jalan dan pondok pekerja tebang dalam kawasan konservasi. Aktivitas ini diduga kuat merupakan kegiatan ilegal dalam TN Kutai.<br><br>Pemantauan: 5 Mei 2026</p></div>
 <div class="swiper-slide w-full flex-shrink-0"><a class="glightbox1 gbox block w-full aspect-video overflow-hidden" href="https://auriga.or.id/resource/reference/deforestasi-dalam-taman-nasional-kutai-di-kalimantan-timur-gambar-3.jpg" data-glightbox="description: Kawasan hutan: TN Kutai. Pemantauan: 5 Mei 2026"><img class="w-full h-full aspect-video object-cover object-center cursor-zoom-in hover:brightness-50 transition duration-300 ease-in-out" src="https://auriga.or.id/resource/reference/deforestasi-dalam-taman-nasional-kutai-di-kalimantan-timur-gambar-3.jpg" alt="Deforestasi dalam Taman Nasional Kutai di Kalimantan Timur gambar 3"></a><p style="width: 100%; margin: 2px 0 0 0; padding: 0; font-size: 12px; line-height: 14px; color: #666; font-weight: 400; box-sizing: border-box;">Kawasan hutan: TN Kutai<br>Pemantauan: 5 Mei 2026</p></div>
 </div>
-<button class="absolute left-0 sm:top-1/2 top-1/4 sm:mt-0 mt-6 transform -translate-y-1/2 bg-black text-white p-2 z-50" type="button" x-show="currentSlide &gt; 0" @click="currentSlide = currentSlide - 1" aria-label="Gambar sebelumnya"><svg class="sm:w-6 sm:h-6 w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5"></path></svg></button>
-<button class="absolute right-0 sm:top-1/2 top-1/4 sm:mt-0 mt-6 transform -translate-y-1/2 bg-black text-white p-2 z-50" type="button" x-show="currentSlide &lt; totalSlides - 1" @click="currentSlide = currentSlide + 1" aria-label="Gambar berikutnya"><svg class="sm:w-6 sm:h-6 w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5"></path></svg></button>
+<button class="absolute left-0 hidden sm:top-1/2 top-1/4 sm:mt-0 mt-6 transform -translate-y-1/2 bg-black text-white p-2 z-50" type="button" data-carousel-prev aria-label="Gambar sebelumnya"><svg class="sm:w-6 sm:h-6 w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5"></path></svg></button>
+<button class="absolute right-0 sm:top-1/2 top-1/4 sm:mt-0 mt-6 transform -translate-y-1/2 bg-black text-white p-2 z-50" type="button" data-carousel-next aria-label="Gambar berikutnya"><svg class="sm:w-6 sm:h-6 w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5"></path></svg></button>
 </div>
+<script>
+document.querySelectorAll('[data-story-carousel]').forEach((carousel) => {
+    const track = carousel.querySelector('[data-carousel-track]');
+    const slides = track ? Array.from(track.children) : [];
+    const previousButton = carousel.querySelector('[data-carousel-prev]');
+    const nextButton = carousel.querySelector('[data-carousel-next]');
+    let currentSlide = 0;
+
+    const updateCarousel = () => {
+        if (!track || !previousButton || !nextButton) return;
+        track.style.transform = `translateX(-${currentSlide * 100}%)`;
+        previousButton.classList.toggle('hidden', currentSlide === 0);
+        nextButton.classList.toggle('hidden', currentSlide === slides.length - 1);
+    };
+
+    previousButton?.addEventListener('click', () => {
+        currentSlide = Math.max(0, currentSlide - 1);
+        updateCarousel();
+    });
+
+    nextButton?.addEventListener('click', () => {
+        currentSlide = Math.min(slides.length - 1, currentSlide + 1);
+        updateCarousel();
+    });
+
+    updateCarousel();
+});
+</script>
 <p dir="ltr"><span>Taman Nasional Kutai, yang ditunjuk sebagai taman nasional pada 1995, memiliki luas 192.583 hektare. Di dalamnya terdapat berbagai spesies langka, seperti orangutan kalimantan </span><span>(Pongo pygmaeus)</span><span>, bekantan </span><span>(Nasalis larvatus),</span><span> beruang madu </span><span>(Helarctos malayanus).</span><span> Taman Nasional Kutai dikelola oleh Balai Taman Nasional yang memiliki </span><a href="https://kutainationalpark.id/tentang-kawasan/struktur-organisasi"><span>92 pegawai </span></a><span>dengan </span><a href="https://kutainationalpark.id/galeri-publikasi/buku/6"><span>anggaran</span></a><span> (per 2025) sebesar Rp 16,8 miliar. </span></p>
 <p dir="ltr"><span>Berdasarkan data tutupan lahan yang tersaji pada platform </span><a href="https://plataforma.mapbiomas.org/coverage/coverage_lclu?t[regionKey]=indonesia&amp;t[ids][]=4-173-35&amp;t[divisionCategoryId]=173&amp;tl[id]=4&amp;tl[themeKey]=coverage&amp;tl[subthemeKey]=coverage_lclu&amp;tl[legendKey]=default&amp;tl[year]=2024&amp;tl[pixelValues][]=3&amp;tl[pixelValues][]=5&amp;tl[pixelValues][]=76&amp;tl[pixelValues][]=13&amp;tl[pixelValues][]=40&amp;tl[pixelValues][]=35&amp;tl[pixelValues][]=9&amp;tl[pixelValues][]=21&amp;tl[pixelValues][]=30&amp;tl[pixelValues][]=24&amp;tl[pixelValues][]=25&amp;tl[pixelValues][]=31&amp;tl[pixelValues][]=33&amp;tl[pixelValues][]=27"><span>MapBiomas Indonesia</span></a><span>, pada 1996 luas hutan alam di Taman Nasional Kutai seluas 151.295 hektare (78,6%). Hutan alam ini berkurang menjadi 130.867 hektare (68%) pada 2000, dan menyusut menjadi 129.389 hektare (67,2%) pada 2024.</span></p>
 <div style="width: 90%; max-width: 960px; margin: 24px auto; padding: 0; box-sizing: border-box;"><video style="display: block; width: 100%; height: auto; margin: 0; padding: 0;" autoplay muted loop playsinline preload="metadata"><source src="https://auriga.or.id/resource/reference/gif-kawasan-hutan-tn-kutai-pemantauan-5-mei-2026.mp4" type="video/mp4"></video><p style="width: 100%; margin: 2px 0 0 0; padding: 0; font-size: 12px; line-height: 14px; color: #666; font-weight: 400; box-sizing: border-box;">Evolusi tutupan lahan Taman Nasional Kutai, 1990-2024. Terlihat bagaimana hutan menyusut oleh konversi hampir di seluruh bagian, mengakibatkannya terfragmentasi, bahkan cenderung membelah. <em>Sumber:</em> MapBiomas Indonesia Koleks 4.</p></div>
