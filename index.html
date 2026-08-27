@@ -55,15 +55,6 @@
       overflow-x: hidden;
     }
 
-    .story-card img {
-      transform: translateZ(0);
-      transition: transform 400ms cubic-bezier(.22, 1, .36, 1);
-    }
-
-    .story-card:hover img {
-      transform: scale(1.025) translateZ(0);
-    }
-
     .story-title,
     .story-description {
       display: -webkit-box;
@@ -108,7 +99,6 @@
         scroll-behavior: auto;
       }
 
-      .story-card img,
       .subscribe-modal,
       .subscribe-dialog {
         transition: none;
@@ -325,8 +315,8 @@
             <img class="h-full w-full object-cover" alt="" loading="lazy" decoding="async">
           </div>
           <div class="pt-5">
-            <h3 data-card-title class="story-title text-lg font-black uppercase leading-[1.25] tracking-[-0.025em] transition-colors duration-300 group-hover:text-auriga-red"></h3>
-            <p data-card-description class="story-description mt-3 text-[12px] leading-[1.75] text-auriga-ink/70"></p>
+            <h3 data-card-title class="story-title text-[16px] font-bold uppercase leading-[1.2] tracking-[-0.025em] transition-colors duration-300 group-hover:text-auriga-red"></h3>
+            <p data-card-description class="story-description mt-3 text-[12px] leading-[1.6] text-auriga-ink/70"></p>
           </div>
         </a>
       </article>
@@ -358,6 +348,18 @@
           detail: 'detail-kutai.html',
           alt: 'Deforestasi di dalam Taman Nasional Kutai, Kalimantan Timur',
           description: 'Deforestasi dalam Taman Nasional Kutai di Kalimantan Timur'
+        },
+        {
+          title: 'Deforestasi dan Pembangunan PSN',
+          image: 'img/mei/DJI_20260506133335_0200_D_AUR26.JPG',
+          alt: 'Pembukaan lahan dan pembangunan jalan yang dipantau pada Mei',
+          description: 'Melihat dampak pembangunan proyek strategis terhadap tutupan hutan alam Indonesia. Data spasial dan temuan lapangan digunakan untuk menilai perubahan kawasan serta risiko ekologis yang muncul di sekitarnya.'
+        },
+        {
+          title: 'Jejak Tambang di Kawasan Hutan',
+          image: 'img/mei/DJI_20260506145816_0028_V.JPG',
+          alt: 'Aktivitas pengangkutan kayu yang dipantau pada Mei',
+          description: 'Membaca perubahan bentang alam melalui data spasial dan pemantauan lapangan. Jejak pembukaan lahan dibandingkan dari waktu ke waktu untuk melihat pengaruh kegiatan tambang terhadap hutan dan wilayah di sekitarnya.'
         }
       ],
       april: [
@@ -367,6 +369,24 @@
           detail: 'detail-gorontalo.html',
           alt: 'Pembukaan hutan untuk kebun kayu biomassa di Gorontalo',
           description: 'Deforestasi dalam konsesi biomassa Banyan Tumbuh Lestari di Gorontalo'
+        },
+        {
+          title: 'Tekanan Baru di Tanah Papua',
+          image: 'img/april/DJI_20260421090334_0077_V.JPG',
+          alt: 'Pembukaan kawasan hutan yang dipantau pada April',
+          description: 'Episentrum kehilangan hutan bergerak menuju Tanah Papua yang masih memiliki bentang alam luas. Perubahan baru perlu dipantau sejak awal agar kerusakan tidak meluas dan hak masyarakat adat tetap terlindungi.'
+        },
+        {
+          title: 'Ekspansi Sawit dan Deforestasi',
+          image: 'img/april/DJI_20260421090848_0107_V%20copy.JPG',
+          alt: 'Pembukaan lahan di kawasan perbukitan yang dipantau pada April',
+          description: 'Mengamati perubahan tutupan hutan yang terjadi di dalam dan sekitar konsesi sawit. Analisis berkala membantu menunjukkan lokasi pembukaan terbaru, pola ekspansi perkebunan, dan dampaknya terhadap ekosistem.'
+        },
+        {
+          title: 'Kebun Kayu di Hutan Alam',
+          image: 'img/hte-kaltara.jpg',
+          alt: 'Dokumentasi pembukaan kawasan hutan pada April',
+          description: 'Pemberian izin kebun kayu pada kawasan berhutan menciptakan risiko deforestasi terencana. Pemantauan perizinan dan tutupan lahan diperlukan untuk memastikan hutan alam bernilai tinggi tidak berubah menjadi tanaman industri.'
         }
       ]
     };
