@@ -67,6 +67,10 @@
       text-align: left;
     }
 
+    .public-story-content [x-data*="showValue"]:hover [x-show="showValue"] {
+      display: block !important;
+    }
+
     .story-intro-title {
       max-width: 900px;
       margin: 0 auto 42px;
@@ -74,17 +78,17 @@
       font-size: 40px;
       font-weight: 700;
       line-height: 1.28;
-      text-align: left;
+      text-align: center;
     }
 
     .story-intro-description {
       max-width: 900px;
       margin: 0 auto 56px;
       color: #3d3d3d;
-      font-size: 25px !important;
+      font-size: 20px !important;
       font-weight: 400;
       line-height: 1.55 !important;
-      text-align: left;
+      text-align: center;
     }
 
     .update-card-title,
@@ -290,10 +294,10 @@
 <div style="position: absolute; top: 75%; left: 0; right: 0; border-top: 1px solid #ccc;"><span style="position: absolute; right: calc(100% + 10px); top: -12px; font-size: 12px; line-height: 24px; white-space: nowrap;">100</span></div>
 <span style="position: absolute; right: calc(100% + 10px); bottom: -12px; font-size: 12px; line-height: 24px; white-space: nowrap;">0</span>
 <div style="position: absolute; inset: 0; display: flex; align-items: flex-end; justify-content: space-around; gap: 7%; padding: 0 7%; box-sizing: border-box;">
-<div x-data="{ showValue: false }" @mouseenter="showValue = true" @mouseleave="showValue = false" style="position: relative; width: 15%; height: 81.5%; background: #4285f4; border-radius: 3px 3px 0 0;"><span x-show="showValue" style="display: none; position: absolute; left: 50%; top: -28px; z-index: 5; padding: 3px 7px; border-radius: 4px; background: #222; color: #fff; font-size: 11px; line-height: 16px; font-weight: 600; white-space: nowrap; pointer-events: none; transform: translateX(-50%);">326 hektare</span><span style="position: absolute; left: 50%; bottom: -30px; font-size: 11px; line-height: 18px; white-space: nowrap; transform: translateX(-50%);">Jan</span></div>
-<div x-data="{ showValue: false }" @mouseenter="showValue = true" @mouseleave="showValue = false" style="position: relative; width: 15%; height: 14.75%; background: #4285f4; border-radius: 3px 3px 0 0;"><span x-show="showValue" style="display: none; position: absolute; left: 50%; top: -28px; z-index: 5; padding: 3px 7px; border-radius: 4px; background: #222; color: #fff; font-size: 11px; line-height: 16px; font-weight: 600; white-space: nowrap; pointer-events: none; transform: translateX(-50%);">59 hektare</span><span style="position: absolute; left: 50%; bottom: -30px; font-size: 11px; line-height: 18px; white-space: nowrap; transform: translateX(-50%);">Feb</span></div>
-<div x-data="{ showValue: false }" @mouseenter="showValue = true" @mouseleave="showValue = false" style="position: relative; width: 15%; height: 62.5%; background: #4285f4; border-radius: 3px 3px 0 0;"><span x-show="showValue" style="display: none; position: absolute; left: 50%; top: -28px; z-index: 5; padding: 3px 7px; border-radius: 4px; background: #222; color: #fff; font-size: 11px; line-height: 16px; font-weight: 600; white-space: nowrap; pointer-events: none; transform: translateX(-50%);">250 hektare</span><span style="position: absolute; left: 50%; bottom: -30px; font-size: 11px; line-height: 18px; white-space: nowrap; transform: translateX(-50%);">Mar</span></div>
-<div x-data="{ showValue: false }" @mouseenter="showValue = true" @mouseleave="showValue = false" style="position: relative; width: 15%; height: 21.25%; background: #4285f4; border-radius: 3px 3px 0 0;"><span x-show="showValue" style="display: none; position: absolute; left: 50%; top: -28px; z-index: 5; padding: 3px 7px; border-radius: 4px; background: #222; color: #fff; font-size: 11px; line-height: 16px; font-weight: 600; white-space: nowrap; pointer-events: none; transform: translateX(-50%);">85 hektare</span><span style="position: absolute; left: 50%; bottom: -30px; font-size: 11px; line-height: 18px; white-space: nowrap; transform: translateX(-50%);">Apr</span></div>
+<div x-data="{ showValue: false }" @mouseenter="showValue = true" @mouseleave="showValue = false" style="position: relative; width: 15%; height: 81.5%; background: #248071; border-radius: 3px 3px 0 0;"><span x-show="showValue" style="display: none; position: absolute; left: 50%; top: -28px; z-index: 5; padding: 3px 7px; border-radius: 4px; background: #222; color: #fff; font-size: 11px; line-height: 16px; font-weight: 600; white-space: nowrap; pointer-events: none; transform: translateX(-50%);">326 hektare</span><span style="position: absolute; left: 50%; bottom: -30px; font-size: 11px; line-height: 18px; white-space: nowrap; transform: translateX(-50%);">Jan</span></div>
+<div x-data="{ showValue: false }" @mouseenter="showValue = true" @mouseleave="showValue = false" style="position: relative; width: 15%; height: 14.75%; background: #248071; border-radius: 3px 3px 0 0;"><span x-show="showValue" style="display: none; position: absolute; left: 50%; top: -28px; z-index: 5; padding: 3px 7px; border-radius: 4px; background: #222; color: #fff; font-size: 11px; line-height: 16px; font-weight: 600; white-space: nowrap; pointer-events: none; transform: translateX(-50%);">59 hektare</span><span style="position: absolute; left: 50%; bottom: -30px; font-size: 11px; line-height: 18px; white-space: nowrap; transform: translateX(-50%);">Feb</span></div>
+<div x-data="{ showValue: false }" @mouseenter="showValue = true" @mouseleave="showValue = false" style="position: relative; width: 15%; height: 62.5%; background: #248071; border-radius: 3px 3px 0 0;"><span x-show="showValue" style="display: none; position: absolute; left: 50%; top: -28px; z-index: 5; padding: 3px 7px; border-radius: 4px; background: #222; color: #fff; font-size: 11px; line-height: 16px; font-weight: 600; white-space: nowrap; pointer-events: none; transform: translateX(-50%);">250 hektare</span><span style="position: absolute; left: 50%; bottom: -30px; font-size: 11px; line-height: 18px; white-space: nowrap; transform: translateX(-50%);">Mar</span></div>
+<div x-data="{ showValue: false }" @mouseenter="showValue = true" @mouseleave="showValue = false" style="position: relative; width: 15%; height: 21.25%; background: #248071; border-radius: 3px 3px 0 0;"><span x-show="showValue" style="display: none; position: absolute; left: 50%; top: -28px; z-index: 5; padding: 3px 7px; border-radius: 4px; background: #222; color: #fff; font-size: 11px; line-height: 16px; font-weight: 600; white-space: nowrap; pointer-events: none; transform: translateX(-50%);">85 hektare</span><span style="position: absolute; left: 50%; bottom: -30px; font-size: 11px; line-height: 18px; white-space: nowrap; transform: translateX(-50%);">Apr</span></div>
 </div>
 </div>
 <div style="position: absolute; left: 0; right: 0; bottom: 0; text-align: center; font-size: clamp(9px, 2.5vw, 12px); line-height: 16px; font-weight: 600;">Bulan</div>
