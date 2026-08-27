@@ -45,7 +45,7 @@
     }
 
     .article-copy {
-      text-align: justify;
+      text-align: left;
     }
 
     .public-story-content figcaption,
@@ -71,6 +71,15 @@
       display: block !important;
     }
 
+    .public-story-content .story-hero ~ * {
+      text-align: left !important;
+    }
+
+    .public-story-content .story-hero ~ * p,
+    .public-story-content .story-hero ~ * figcaption {
+      text-align: left !important;
+    }
+
     .story-intro-title {
       max-width: 900px;
       margin: 0 auto 42px;
@@ -88,7 +97,7 @@
       font-size: 20px !important;
       font-weight: 400;
       line-height: 1.55 !important;
-      text-align: center;
+      text-align: left;
     }
 
     .update-card-title,
@@ -256,7 +265,7 @@
 <h1 class="story-intro-title">Deforestasi dalam konsesi logging Kiani Lestari di Kalimantan Timur</h1>
 <p class="story-intro-description" dir="ltr"><span>Pada 2024, Kutai Timur menjadi pemuncak deforestasi Indonesia per kabupaten dengan kehilangan hutan alam seluas 16.578 hektare.</span></p>
 
-      <figure class="relative left-1/2 mt-14 w-screen max-w-[1200px] -translate-x-1/2 px-5 sm:px-8 lg:px-12">
+      <figure class="story-hero relative left-1/2 mt-14 w-screen max-w-[1200px] -translate-x-1/2 px-5 sm:px-8 lg:px-12">
         <div class="aspect-[16/9] overflow-hidden bg-[#e8e8e8]">
           <img
             src="https://stg.simontini.id/storage/deforestory/id/iWMjknombGqyZxIgaKNLRY07WnRjHdSum51vOeOw.jpg"
